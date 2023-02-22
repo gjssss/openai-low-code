@@ -1,0 +1,52 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-essential",
+    "plugin:prettier/recommended"
+  ],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "vue",
+    "prettier"
+  ],
+  "rules": {
+    "vue/eqeqeq": "off",
+    "eqeqeq": "off",
+    "vue/component-tags-order": [
+      "error",
+      {
+        "order": [
+          [
+            "script",
+            "template"
+          ],
+          "style"
+        ]
+      }
+    ],
+    "sort-imports": "off",
+    "no-console": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true,
+        "semi": false
+      }
+    ],
+    "@typescript-eslint/no-this-alias": "off",
+    "prefer-rest-params": "off",
+    "no-async-promise-executor": "off",
+    "prefer-promise-reject-errors": "off",
+    "import/named": "off",
+    "vue/multi-word-component-names": "off"
+  }
+}
