@@ -1,5 +1,5 @@
 <template>
-  <div class="w-sider-bar h-screen">
+  <div class="w-sider-bar h-screen shadow-xl">
     <n-tabs
       type="line"
       animated

@@ -1,8 +1,8 @@
 <template>
   <div class="flex">
     <div class="h-screen w-content-screen">
-      <div class="bg-red h-top-tab w-full"></div>
-      <div class="bg-green h-web-container w-full"></div>
+      <div class="h-top-tab w-full shadow-md"></div>
+      <div class="h-web-container w-full"></div>
     </div>
     <side-bar></side-bar>
   </div>
