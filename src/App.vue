@@ -1,5 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router'
+import { register } from './components/lib/utils/register'
+register()
 </script>
 
 <template>

@@ -2,7 +2,7 @@
   <div class="flex">
     <div class="h-screen w-content-screen">
       <div class="h-top-tab w-full shadow-md"></div>
-      <div class="h-web-container w-full"></div>
+      <editor-view></editor-view>
     </div>
     <side-bar></side-bar>
   </div>
@@ -10,6 +10,7 @@
 
 <script setup>
 import SideBar from '../components/side-bar/side-bar.vue'
+import editorView from '../components/editor-view/editor-view.vue'
 </script>
 
 <style>
@@ -22,7 +23,7 @@ import SideBar from '../components/side-bar/side-bar.vue'
 .h-top-tab {
   height: 50px;
 }
-.h-web-container {
+.h-editor-view {
   height: calc(100vh - 50px);
 }
 </style>

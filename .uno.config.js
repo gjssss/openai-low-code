@@ -19,7 +19,7 @@ export default defineConfig({
     ['fs-m', { 'font-size': '22px' }],
     ['fs-l', { 'font-size': '24px' }],
     ['fs-xl', { 'font-size': '26px' }],
-    ['fs-xl', { 'font-size': '28px' }],
+    ['fs-xxl', { 'font-size': '28px' }],
     ['trans-all', { transition: 'all 0.225s ease-in-out' }],
   ],
   shortcuts: [{ 'title-icon': 'fs-l hover:c-orange trans-all' }],
