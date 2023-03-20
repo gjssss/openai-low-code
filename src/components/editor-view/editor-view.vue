@@ -15,6 +15,7 @@ const base = new Base({
     margin: '10px',
     border: '1px solid black',
   },
+  class: ['trans-all'],
   onclick: () => {
     base.props.style.padding = '20px'
   },

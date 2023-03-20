@@ -1,7 +1,6 @@
 import { reactive, h, computed } from 'vue'
+import { func } from '../utils/createProps'
 import { registerComponent, selectComponent } from '../utils/register'
-
-import { NInput } from 'naive-ui'
 
 export class Base {
   constructor(props) {
@@ -21,19 +20,15 @@ export class Base {
     })
 
     this.name = 'Base'
+
+    this.show = {
+      type: 'input',
+      name: 'padding',
+      isStyle: true,
+    }
+    func.bind(this.constructor)
   }
 
-  show() {
-    const _this = this
-    const comp = (props) =>
-      h(NInput, {
-        value: props.value,
-        onInput: (target) => {
-          _this.props.style.padding = target
-        },
-      })
-    return <comp value={this.props.style.padding}></comp>
-  }
   _render() {
     const comp = (props) => h('div', props.props)
     return <comp props={this.props}></comp>
