@@ -2,33 +2,30 @@
   <div class="w-sider-bar h-screen shadow-xl">
     <n-tabs
       type="line"
-      animated
-      justify-content="center"
-      class="h-full"
-      pane-class="h-900px"
+      :tab-style="{
+        width: '160px',
+        display: 'flex',
+        'justify-content': 'center',
+      }"
+      v-model:value="select"
     >
-      <n-tab-pane
-        name="oasis"
-        tab="属性"
-        :tab-props="{ class: 'w-160px justify-center' }"
-      >
-        <side-prop></side-prop>
-      </n-tab-pane>
-      <n-tab-pane
-        name="the beatles"
-        tab="组件"
-        :tab-props="{ class: 'w-160px justify-center' }"
-      >
-        <side-com></side-com>
-      </n-tab-pane>
+      <n-tab name="prop"> 属性 </n-tab>
+      <n-tab name="comp"> 组件 </n-tab>
     </n-tabs>
+    <div class="overflow-y-auto">
+      <component :is="comMap[select]"></component>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { NTabs, NTabPane } from 'naive-ui'
+import { NTabs, NTab } from 'naive-ui'
+import { ref } from 'vue'
 import sideCom from './side-com.vue'
 import sideProp from './side-prop.vue'
+const select = ref('prop')
+const comMap = {
+  prop: sideProp,
+  comp: sideCom,
+}
 </script>
-
-<style></style>

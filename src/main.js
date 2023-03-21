@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 
 import 'uno.css'
+import './assets/iconfont.css'
 
 const app = createApp(App)
 const pinia = createPinia()

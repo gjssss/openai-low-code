@@ -16,3 +16,17 @@ export function registerComponent(componentClass) {
 export function selectComponent(id) {
   component.select = id
 }
+
+export const defaultStyles = {
+  padding: '0px',
+  margin: '0px',
+  color: 'transparent',
+  'font-size': '16px',
+  'border-width': '0px',
+  'border-style': 'solid',
+  'border-color': 'black',
+  'border-top-left-radius': '0px',
+  'border-top-right-radius': '0px',
+  'border-bottom-left-radius': '0px',
+  'border-bottom-right-radius': '0px',
+}

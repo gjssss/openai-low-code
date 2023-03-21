@@ -3,10 +3,15 @@ import { func } from '../utils/createProps'
 import { registerComponent, selectComponent } from '../utils/register'
 
 export class Base {
-  constructor(props) {
+  constructor(name, props) {
     this.id = registerComponent(this)
     this.props = reactive(props)
     this.render = computed(() => {
+      if (this.isRender === false) {
+        this.isRender = true
+      }
+      const renderComponent = this._render()
+      renderComponent.props.props.id = 'com-' + this.id
       return h(
         'div',
         {
@@ -15,17 +20,11 @@ export class Base {
           },
           class: 'select-wapper',
         },
-        this._render()
+        renderComponent
       )
     })
-
-    this.name = 'Base'
-
-    this.show = {
-      type: 'input',
-      name: 'padding',
-      isStyle: true,
-    }
+    this.isRender = false
+    this.name = name
     func.bind(this.constructor)
   }
 

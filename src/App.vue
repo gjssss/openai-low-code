@@ -13,4 +13,9 @@ register()
   margin: 0;
   padding: 0;
 }
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
