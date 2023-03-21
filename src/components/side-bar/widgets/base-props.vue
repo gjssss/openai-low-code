@@ -1,7 +1,7 @@
 <template>
   <n-card class="my-10px" :title="title" size="small" hoverable embedded>
     <template #header-extra>
-      <n-switch v-model:value="paddingSelect" size="small" :round="false">
+      <n-switch v-model:value="_select" size="small" :round="false">
         <template #checked-icon>
           <span class="iconfont icon-kuozhanshuxing" />
         </template>
@@ -13,73 +13,47 @@
       </n-switch>
       <span class="iconfont px-5px" :class="props.icon" />
     </template>
-    <div v-if="paddingSelect" class="flex flex-row flex-wrap w-full">
-      <div class="w-50% flex flex-row py-2px">
-        <div class="w-20% text-right flex-center px-4px">
-          <span
-            class="iconfont text-18px"
-            :class="props.iconUp ? props.iconUp : 'icon-up-circle'"
-          ></span>
-        </div>
+    <prop-layout v-if="_select">
+      <div size="12">
+        <span :class="props.iconUp ? props.iconUp : 'icon-up-circle'" />
         <n-input-number
-          class="w-80%"
           :value="parseStylePixel('up')"
           @update-value="(value) => formatStyleOutput(value, 'up')"
         ></n-input-number>
       </div>
-      <div class="w-50% flex flex-row py-2px">
-        <div class="w-20% text-right flex-center px-4px">
-          <span
-            class="iconfont text-18px"
-            :class="props.iconRight ? props.iconRight : 'icon-right-circle'"
-          ></span>
-        </div>
+      <div size="12">
+        <span
+          :class="props.iconRight ? props.iconRight : 'icon-right-circle'"
+        />
         <n-input-number
-          class="w-80%"
           :value="parseStylePixel('right')"
           @update-value="(value) => formatStyleOutput(value, 'right')"
         ></n-input-number>
       </div>
-      <div class="w-50% flex flex-row py-2px">
-        <div class="w-20% text-right flex-center px-4px">
-          <span
-            class="iconfont text-18px"
-            :class="props.iconLeft ? props.iconLeft : 'icon-left-circle'"
-          ></span>
-        </div>
+      <div size="12">
+        <span :class="props.iconLeft ? props.iconLeft : 'icon-left-circle'" />
         <n-input-number
-          class="w-80%"
           :value="parseStylePixel('left')"
           @update-value="(value) => formatStyleOutput(value, 'left')"
         ></n-input-number>
       </div>
-      <div class="w-50% flex flex-row py-2px">
-        <div class="w-20% text-right flex-center px-4px">
-          <span
-            class="iconfont text-18px"
-            :class="props.iconDown ? props.iconDown : 'icon-down-circle'"
-          ></span>
-        </div>
+      <div size="12">
+        <span :class="props.iconDown ? props.iconDown : 'icon-down-circle'" />
         <n-input-number
-          class="w-80%"
           :value="parseStylePixel('down')"
           @update-value="(value) => formatStyleOutput(value, 'down')"
         ></n-input-number>
       </div>
-    </div>
-    <div v-else class="flex w-full">
-      <div class="w-full flex flex-row py-2px">
-        <div class="w-20% text-right flex-center px-4px">
-          <span class="iconfont text-18px" :class="props.icon"></span>
-        </div>
+    </prop-layout>
+    <prop-layout v-else>
+      <div size="24">
+        <span :class="props.icon" />
         <n-input-number
-          class="w-80%"
           :value="parseStylePixel()"
           @update-value="(value) => formatStyleOutput(value)"
         ></n-input-number>
       </div>
-    </div>
-    <slot></slot>
+    </prop-layout>
   </n-card>
 </template>
 
@@ -88,7 +62,7 @@ import { storeToRefs } from 'pinia'
 import { useComponentStore } from '../../../stores/component'
 import { NCard, NSwitch, NInputNumber } from 'naive-ui'
 import { computed, onMounted, ref, watch } from 'vue'
-
+import PropLayout from './prop-layout.vue'
 const props = defineProps([
   'prop-name',
   'title',
@@ -100,7 +74,7 @@ const props = defineProps([
 ])
 
 console.log(props.iconDown)
-const paddingSelect = ref(false)
+const _select = ref(false)
 const isMounted = ref(false)
 const up = ref(0)
 const down = ref(0)
@@ -115,6 +89,9 @@ const component = useComponentStore()
 const { currentComponent, select } = storeToRefs(component)
 
 watch(select, bind)
+watch(_select, (newVal) => {
+  currentComponent.value.settings[props.propName + '-more'] = newVal
+})
 
 function parseStylePixel(prop) {
   if (isMounted.value) {
@@ -160,6 +137,12 @@ function formatStyleOutput(value, prop) {
 }
 
 function bind() {
+  // 将更多属性保存在setting内 如setting['padding-more'] = true
+  if (currentComponent.value.settings[props.propName + '-more'] === undefined) {
+    currentComponent.value.settings[props.propName + '-more'] = false
+  } else {
+    _select.value = currentComponent.value.settings[props.propName + '-more']
+  }
   const id = currentComponent.value.id
   const styles = window.getComputedStyle(document.getElementById('com-' + id))
   const arr = styles[props.propName].split(' ')
@@ -199,5 +182,3 @@ onMounted(() => {
   bind()
 })
 </script>
-
-<style></style>

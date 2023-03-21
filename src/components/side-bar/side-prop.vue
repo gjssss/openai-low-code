@@ -32,6 +32,7 @@
       icon-up="icon-border-top"
       icon-down="icon-border-bottom"
     ></base-props>
+    <flex-props></flex-props>
   </div>
 </template>
 
@@ -39,7 +40,7 @@
 import { storeToRefs } from 'pinia'
 import { useComponentStore } from '../../stores/component'
 import baseProps from './widgets/base-props.vue'
-
+import FlexProps from './widgets/flex-props.vue'
 const component = useComponentStore()
 const { currentComponent } = storeToRefs(component)
 </script>

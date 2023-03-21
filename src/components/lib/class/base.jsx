@@ -25,6 +25,7 @@ export class Base {
     })
     this.isRender = false
     this.name = name
+    this.settings = reactive({}) // 保存一些组件属性管理上的设置
     func.bind(this.constructor)
   }
 
