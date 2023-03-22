@@ -2,8 +2,15 @@
 import { defineComponent, h } from 'vue'
 export default defineComponent({
   render() {
-    const slotList = this.$slots.default ? this.$slots.default() : []
-    console.log(slotList[0].children)
+    let slotList = this.$slots.default ? this.$slots.default() : []
+    // 处理slots中所有template（通过另外插槽引入）
+    for (let i = 0; i < slotList.length; i++) {
+      if (slotList[i].type !== 'div') {
+        slotList.splice(i, 1, ...slotList[i].children)
+        i--
+      }
+    }
+
     return h('div', { class: 'flex flex-row flex-wrap w-full' }, [
       slotList.map((item) => {
         const childrenList = []
@@ -21,7 +28,7 @@ export default defineComponent({
         return h(
           'div',
           {
-            class: `flex flex-row py-2px`,
+            class: `flex flex-row py-4px`,
             style: `width: ${(item.props.size / 24) * 100}%`,
           },
           childrenList
@@ -31,5 +38,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style></style>

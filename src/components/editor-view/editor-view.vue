@@ -13,7 +13,9 @@ import { Button } from '../lib/class/button'
 const base = new Base('这是一个基类', {
   style: {
     padding: '10px',
-    border: '1px solid black',
+    'border-style': 'solid',
+    'border-color': '#000',
+    'border-width': '1px',
   },
   class: ['trans-all', 'w-20px'],
 })
@@ -22,7 +24,6 @@ const baseComponent = base.render
 const button = new Button(
   '这是一个按钮',
   {
-    style: {},
     class: ['trans-all'],
   },
   { type: 'primary' }

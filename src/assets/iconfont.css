@@ -1,9 +1,9 @@
 @font-face {
     font-family: "iconfont";
     /* Project id 3965243 */
-    src: url('//at.alicdn.com/t/c/font_3965243_v46l36mk3r.woff2?t=1679391010130') format('woff2'),
-        url('//at.alicdn.com/t/c/font_3965243_v46l36mk3r.woff?t=1679391010130') format('woff'),
-        url('//at.alicdn.com/t/c/font_3965243_v46l36mk3r.ttf?t=1679391010130') format('truetype');
+    src: url('//at.alicdn.com/t/c/font_3965243_oy1hnobo649.woff2?t=1679492426217') format('woff2'),
+        url('//at.alicdn.com/t/c/font_3965243_oy1hnobo649.woff?t=1679492426217') format('woff'),
+        url('//at.alicdn.com/t/c/font_3965243_oy1hnobo649.ttf?t=1679492426217') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,30 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-line-solid:before {
+    content: "\ecc1";
+}
+
+.icon-line-dashed:before {
+    content: "\eccb";
+}
+
+.icon-line-double:before {
+    content: "\eccc";
+}
+
+.icon-line-dotted:before {
+    content: "\eccd";
+}
+
+.icon-line-none:before {
+    content: "\ecce";
+}
+
+.icon-color:before {
+    content: "\e94b";
 }
 
 .icon-radius:before {

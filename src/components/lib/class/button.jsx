@@ -8,7 +8,7 @@ export class Button extends Base {
     this.props = reactive({ ...this.props, ...this.option })
   }
   _render() {
-    const comp = (props) => h(NButton, props.props, '按钮')
+    const comp = (props) => h(NButton, props.props, () => '按钮')
     return <comp props={this.props}></comp>
   }
   static get preview() {

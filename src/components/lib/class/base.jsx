@@ -1,11 +1,14 @@
 import { reactive, h, computed } from 'vue'
-import { func } from '../utils/createProps'
 import { registerComponent, selectComponent } from '../utils/register'
-
+import { merge } from 'lodash-es'
 export class Base {
   constructor(name, props) {
+    this.props = {
+      class: [],
+      style: {},
+    }
     this.id = registerComponent(this)
-    this.props = reactive(props)
+    this.props = reactive(merge(this.props, props))
     this.render = computed(() => {
       if (this.isRender === false) {
         this.isRender = true
@@ -26,7 +29,6 @@ export class Base {
     this.isRender = false
     this.name = name
     this.settings = reactive({}) // 保存一些组件属性管理上的设置
-    func.bind(this.constructor)
   }
 
   _render() {

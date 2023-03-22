@@ -4,17 +4,18 @@
       <span class="text-20px fw-600">组件名称：</span
       ><span class="text-18px fw-500">{{ currentComponent.name }}</span>
     </div>
-    <base-props
+    <four-props
       prop-name="padding"
       title="内边距"
       icon="icon-padding"
-    ></base-props>
-    <base-props
+    ></four-props>
+    <four-props
       prop-name="margin"
       title="外边距"
       icon="icon-margin"
-    ></base-props>
-    <base-props
+    ></four-props>
+    <border-prop></border-prop>
+    <four-props
       prop-name="border-radius"
       title="边框半径"
       icon="icon-radius"
@@ -22,25 +23,16 @@
       icon-right="icon-radius-upright"
       icon-up="icon-radius-upleft"
       icon-down="icon-radius-bottomright"
-    ></base-props>
-    <base-props
-      prop-name="border-width"
-      title="边框大小"
-      icon="icon-border"
-      icon-left="icon-border-left"
-      icon-right="icon-border-right"
-      icon-up="icon-border-top"
-      icon-down="icon-border-bottom"
-    ></base-props>
-    <flex-props></flex-props>
+    ></four-props>
   </div>
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useComponentStore } from '../../stores/component'
-import baseProps from './widgets/base-props.vue'
-import FlexProps from './widgets/flex-props.vue'
+import fourProps from './widgets/four-props.vue'
+import borderProp from './components/border-prop.vue'
+
 const component = useComponentStore()
 const { currentComponent } = storeToRefs(component)
 </script>

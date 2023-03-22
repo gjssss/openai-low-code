@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 8081",
     "build": "vite build",
     "preview": "vite preview",
+    "expose": "vite --port 8081 --host 0.0.0.0",
     "test:unit": "vitest --environment jsdom --root src/",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "count": "node ./scripts/counter.js"
   },
   "dependencies": {
     "@vueuse/core": "^9.12.0",
