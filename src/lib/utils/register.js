@@ -1,4 +1,4 @@
-import { useComponentStore } from '../../../stores/component'
+import { useComponentStore } from '@/stores/component'
 
 let component
 

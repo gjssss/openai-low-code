@@ -1,7 +1,7 @@
 <template>
   <four-props
     prop-name="border-width"
-    title="边框大小"
+    title="边框"
     icon="icon-border"
     icon-left="icon-border-left"
     icon-right="icon-border-right"
@@ -10,7 +10,7 @@
   >
     <template #default>
       <div size="12">
-        <span class="icon-color" :style="{ color: selectColor }" />
+        <span class="icon-color stroke" :style="{ color: selectColor }" />
         <n-color-picker
           :modes="['hex']"
           :value="selectColor"
@@ -44,8 +44,9 @@ import fourProps from '../widgets/four-props.vue'
 import { NColorPicker, NSelect } from 'naive-ui'
 import { onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useComponentStore } from '../../../stores/component'
+import { useComponentStore } from '@/stores/component'
 import { rgbaToHex } from '@/utils/color.js'
+
 const component = useComponentStore()
 const { select } = storeToRefs(component)
 const selectStyle = ref('none')

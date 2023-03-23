@@ -1,9 +1,9 @@
 @font-face {
     font-family: "iconfont";
     /* Project id 3965243 */
-    src: url('//at.alicdn.com/t/c/font_3965243_oy1hnobo649.woff2?t=1679492426217') format('woff2'),
-        url('//at.alicdn.com/t/c/font_3965243_oy1hnobo649.woff?t=1679492426217') format('woff'),
-        url('//at.alicdn.com/t/c/font_3965243_oy1hnobo649.ttf?t=1679492426217') format('truetype');
+    src: url('//at.alicdn.com/t/c/font_3965243_4h1daxl3vuv.woff2?t=1679493814959') format('woff2'),
+        url('//at.alicdn.com/t/c/font_3965243_4h1daxl3vuv.woff?t=1679493814959') format('woff'),
+        url('//at.alicdn.com/t/c/font_3965243_4h1daxl3vuv.ttf?t=1679493814959') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,26 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-24gf-percent:before {
+    content: "\e891";
+}
+
+.icon-pixels:before {
+    content: "\e6ed";
+}
+
+.icon-height:before {
+    content: "\e7ef";
+}
+
+.icon-width:before {
+    content: "\e7fc";
+}
+
+.icon-resize:before {
+    content: "\e890";
 }
 
 .icon-line-solid:before {

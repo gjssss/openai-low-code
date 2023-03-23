@@ -56,7 +56,7 @@
 import baseProps from './base-props.vue'
 import { NInputNumber } from 'naive-ui'
 import { computed, onMounted, ref, watch } from 'vue'
-import { useComponentStore } from '../../../stores/component'
+import { useComponentStore } from '@/stores/component'
 import { storeToRefs } from 'pinia'
 const props = defineProps([
   'prop-name',
@@ -78,7 +78,7 @@ const propAll = computed(() => {
 })
 
 const component = useComponentStore()
-const { currentComponent, select } = storeToRefs(component)
+const { select } = storeToRefs(component)
 
 watch(select, bind)
 
@@ -105,6 +105,7 @@ function parseStylePixel(prop) {
 
 function formatStyleOutput(value, prop) {
   if (prop) {
+    // 判断是否是四个方向
     if (prop === 'left') {
       left.value = value
     } else if (prop === 'right') {
@@ -115,21 +116,24 @@ function formatStyleOutput(value, prop) {
       down.value = value
     }
   } else {
+    // 不是四个方向的就设置四个为一样的值
     left.value = value
     right.value = value
     up.value = value
     down.value = value
   }
-  currentComponent.value.props.style[
-    props.propName
-  ] = `${up.value}px ${right.value}px ${down.value}px ${left.value}px`
+  component.setProp(
+    props.propName,
+    `${up.value}px ${right.value}px ${down.value}px ${left.value}px`,
+    true
+  )
 }
 
 function bind() {
-  const id = currentComponent.value.id
-  const styles = window.getComputedStyle(document.getElementById('com-' + id))
-  const arr = styles[props.propName].split(' ')
+  const arr = component.getProp(props.propName, false, true).split(' ')
   // 初始化属性
+
+  // 下面根据四值规则更改属性，一个值就是四个方向相同，两个值就是上下和左右等
   if (arr.length === 1) {
     left.value = parseInt(arr[0])
     right.value = parseInt(arr[0])
@@ -150,13 +154,6 @@ function bind() {
     right.value = parseInt(arr[1])
     down.value = parseInt(arr[2])
     left.value = parseInt(arr[3])
-  }
-
-  // 设置属性
-  if (!currentComponent.value.props.style[props.propName]) {
-    currentComponent.value.props.style[
-      props.propName
-    ] = `${up.value}px ${right.value}px ${down.value}px ${left.value}px`
   }
 }
 

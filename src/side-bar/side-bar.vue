@@ -1,5 +1,5 @@
 <template>
-  <div class="w-sider-bar h-screen shadow-xl">
+  <div class="w-sider-bar h-screen hover:shadow-xl shadow-md">
     <n-tabs
       type="line"
       :tab-style="{

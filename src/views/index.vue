@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import SideBar from '../components/side-bar/side-bar.vue'
-import editorView from '../components/editor-view/editor-view.vue'
+import SideBar from '../side-bar/side-bar.vue'
+import editorView from '../editor-view/editor-view.vue'
 </script>
 
 <style>

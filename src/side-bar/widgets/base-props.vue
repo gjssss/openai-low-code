@@ -8,13 +8,25 @@
         v-if="props.isSwitch"
       >
         <template #checked-icon>
-          <span class="iconfont icon-kuozhanshuxing" />
+          <span
+            class="iconfont"
+            :class="
+              props.advanceIcon ? props.advanceIcon : 'icon-kuozhanshuxing'
+            "
+          />
         </template>
-        <template #checked> 高级设置 </template>
+        <template #checked>
+          {{ props.advanceTitle ? props.advanceTitle : '高级设置' }}
+        </template>
         <template #unchecked-icon>
-          <span class="iconfont icon-jichu" />
+          <span
+            class="iconfont"
+            :class="props.baseIcon ? props.baseIcon : 'icon-jichu'"
+          />
         </template>
-        <template #unchecked> 基础设置 </template>
+        <template #unchecked>
+          {{ props.baseTitle ? props.baseTitle : '基础设置' }}
+        </template>
       </n-switch>
       <span class="iconfont px-5px" :class="props.icon" />
     </template>
@@ -37,10 +49,19 @@
 import { NCard, NSwitch } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
-import { useComponentStore } from '../../../stores/component'
+import { useComponentStore } from '@/stores/component'
 import PropLayout from './prop-layout.vue'
 
-const props = defineProps(['title', 'icon', 'is-switch', 'prop-name'])
+const props = defineProps([
+  'title',
+  'icon',
+  'is-switch',
+  'prop-name',
+  'base-title',
+  'base-icon',
+  'advance-title',
+  'advance-icon',
+])
 const _select = ref(false)
 const component = useComponentStore()
 const { currentComponent, select } = storeToRefs(component)

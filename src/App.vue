@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import { register } from './components/lib/utils/register'
+import { register } from '@/lib/utils/register'
 register()
 </script>
 

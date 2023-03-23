@@ -22,6 +22,9 @@ export default defineComponent({
             item.children[0]
           )
         )
+        if (!item.children[1].props) {
+          item.children[1].props = { style: '' }
+        }
         item.children[1].props.style += 'width: 80%'
         childrenList.push(item.children[1])
         item.props.size = item.props.size ? item.props.size : 24
