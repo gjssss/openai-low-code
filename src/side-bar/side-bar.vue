@@ -1,5 +1,7 @@
 <template>
-  <div class="w-sider-bar h-screen hover:shadow-xl shadow-md">
+  <div
+    class="w-sider-bar h-screen hover:shadow-xl shadow-md overflow-auto scroller"
+  >
     <n-tabs
       type="line"
       :tab-style="{
@@ -12,8 +14,10 @@
       <n-tab name="prop"> 属性 </n-tab>
       <n-tab name="comp"> 组件 </n-tab>
     </n-tabs>
-    <div class="overflow-y-auto">
-      <component :is="comMap[select]"></component>
+    <div>
+      <KeepAlive>
+        <component :is="comMap[select]"></component>
+      </KeepAlive>
     </div>
   </div>
 </template>
@@ -29,3 +33,8 @@ const comMap = {
   comp: sideCom,
 }
 </script>
+<style>
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+</style>

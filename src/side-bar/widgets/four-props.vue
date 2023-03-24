@@ -7,7 +7,10 @@
   >
     <template #detail>
       <div size="12">
-        <span :class="props.iconUp ? props.iconUp : 'icon-up-circle'" />
+        <span
+          class="iconfont text-18px"
+          :class="props.iconUp ? props.iconUp : 'icon-up-circle'"
+        />
         <n-input-number
           :value="parseStylePixel('up')"
           @update-value="(value) => formatStyleOutput(value, 'up')"
@@ -15,6 +18,7 @@
       </div>
       <div size="12">
         <span
+          class="iconfont text-18px"
           :class="props.iconRight ? props.iconRight : 'icon-right-circle'"
         />
         <n-input-number
@@ -23,14 +27,20 @@
         ></n-input-number>
       </div>
       <div size="12">
-        <span :class="props.iconLeft ? props.iconLeft : 'icon-left-circle'" />
+        <span
+          class="iconfont text-18px"
+          :class="props.iconLeft ? props.iconLeft : 'icon-left-circle'"
+        />
         <n-input-number
           :value="parseStylePixel('left')"
           @update-value="(value) => formatStyleOutput(value, 'left')"
         ></n-input-number>
       </div>
       <div size="12">
-        <span :class="props.iconDown ? props.iconDown : 'icon-down-circle'" />
+        <span
+          class="iconfont text-18px"
+          :class="props.iconDown ? props.iconDown : 'icon-down-circle'"
+        />
         <n-input-number
           :value="parseStylePixel('down')"
           @update-value="(value) => formatStyleOutput(value, 'down')"
@@ -39,7 +49,7 @@
     </template>
     <template #default>
       <div size="24">
-        <span :class="props.icon" />
+        <span class="iconfont text-18px" :class="props.icon" />
         <n-input-number
           :value="parseStylePixel()"
           @update-value="(value) => formatStyleOutput(value)"
@@ -78,9 +88,9 @@ const propAll = computed(() => {
 })
 
 const component = useComponentStore()
-const { select } = storeToRefs(component)
+const { _updateFlag } = storeToRefs(component)
 
-watch(select, bind)
+watch(_updateFlag, bind)
 
 function parseStylePixel(prop) {
   if (isMounted.value) {

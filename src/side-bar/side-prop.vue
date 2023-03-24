@@ -1,15 +1,22 @@
 <template>
   <div>
     <div class="p-10px">
-      <span class="text-20px fw-600">组件名称：</span
-      ><span class="text-18px fw-500">{{ currentComponent.name }}</span>
+      <div class="text-20px fw-600">组件名称：</div>
+      <n-input
+        type="text"
+        size="small"
+        placeholder="组件名称"
+        v-model:value.trim="currentComponent.name"
+        :round="true"
+      />
     </div>
     <n-collapse
       display-directive="show"
       arrow-placement="right"
-      :default-expanded-names="['1']"
+      :default-expanded-names="['0']"
+      :accordion="true"
     >
-      <n-collapse-item name="1">
+      <n-collapse-item name="0">
         <template #header>
           <div
             class="mx-10% text-center py-5px w-80% collapse-header hover:shadow-md trans-all"
@@ -29,18 +36,37 @@
           title="外边距"
           icon="icon-margin"
         ></four-props>
+        <border-prop></border-prop>
+        <four-props
+          prop-name="border-radius"
+          title="边框半径"
+          icon="icon-radius"
+          icon-left="icon-radius-bottomleft"
+          icon-right="icon-radius-upright"
+          icon-up="icon-radius-upleft"
+          icon-down="icon-radius-bottomright"
+        ></four-props>
+      </n-collapse-item>
+      <n-collapse-item
+        v-for="(componentArray, name, index) in currentComponent.extraProps"
+        :name="index"
+        :key="index"
+      >
+        <template #header>
+          <div
+            class="mx-10% text-center py-5px w-80% collapse-header hover:shadow-md trans-all"
+          >
+            <span class="text-16px fw-500">{{ name }}</span>
+          </div>
+        </template>
+        <template #arrow> <span></span> </template>
+        <component
+          v-for="(comp, i) in componentArray"
+          :key="i"
+          :is="comp"
+        ></component>
       </n-collapse-item>
     </n-collapse>
-    <border-prop></border-prop>
-    <four-props
-      prop-name="border-radius"
-      title="边框半径"
-      icon="icon-radius"
-      icon-left="icon-radius-bottomleft"
-      icon-right="icon-radius-upright"
-      icon-up="icon-radius-upleft"
-      icon-down="icon-radius-bottomright"
-    ></four-props>
   </div>
 </template>
 
@@ -50,7 +76,7 @@ import { useComponentStore } from '@/stores/component'
 import fourProps from './widgets/four-props.vue'
 import borderProp from './components/border-prop.vue'
 import sizeProp from './components/size-prop.vue'
-import { NCollapse, NCollapseItem } from 'naive-ui'
+import { NCollapse, NCollapseItem, NInput } from 'naive-ui'
 
 const component = useComponentStore()
 const { currentComponent } = storeToRefs(component)

@@ -1,7 +1,7 @@
 <template>
-  <div class="h-editor-view w-full overflow-hidden">
+  <div id="eidtor" class="h-editor-view w-full overflow-hidden">
     <div class="overflow-y-auto w-full h-full">
-      <base-component></base-component> <buttonComponent></buttonComponent>
+      <base-component /> <buttonComponent />
     </div>
   </div>
 </template>
@@ -21,12 +21,8 @@ const base = new Base('这是一个基类', {
 })
 const baseComponent = base.render
 
-const button = new Button(
-  '这是一个按钮',
-  {
-    class: ['trans-all'],
-  },
-  { type: 'primary' }
-)
+const button = new Button('这是一个按钮', {
+  class: ['trans-all'],
+})
 const buttonComponent = button.render
 </script>

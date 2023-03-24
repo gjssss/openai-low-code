@@ -5,6 +5,7 @@ export const useComponentStore = defineStore('component', {
     compSet: {},
     count: 0,
     select: 0,
+    _updateFlag: false, // 用于控制属性表单更新
   }),
   actions: {
     /**
@@ -18,6 +19,16 @@ export const useComponentStore = defineStore('component', {
       this.count++
       return id
     },
+    // 属性表单重新绑定
+    updateBindProp() {
+      this._updateFlag = !this._updateFlag
+    },
+    updateThenBind() {
+      // 对于改变组件属性后，其样式不会立马改变（nextTick也不行），目前就想到这个方法
+      setTimeout(() => {
+        this.updateBindProp()
+      }, 300)
+    },
     /**
      * 获取组件某属性的值
      * @param {String} propName 属性名称
@@ -27,16 +38,7 @@ export const useComponentStore = defineStore('component', {
      */
     getProp(propName, defaultVal, isStyle) {
       if (isStyle) {
-        // default 为 false 就先设置一下显示的默认的样式
-        if (!defaultVal) {
-          defaultVal = this.styles[propName]
-        }
-        // 要是没定义就先搞到对象里
-        if (this.currentComponent.props.style[propName] === undefined) {
-          this.currentComponent.props.style[propName] = defaultVal
-          return defaultVal
-        }
-        return this.styles[propName]
+        return defaultVal ? defaultVal : this.styles[propName]
       } else {
         if (defaultVal && this.currentComponent.props[propName] === undefined) {
           this.currentComponent.props[propName] = defaultVal
@@ -53,7 +55,6 @@ export const useComponentStore = defineStore('component', {
      */
     setProp(propName, value, isStyle) {
       if (isStyle) {
-        console.log(value)
         this.currentComponent.props.style[propName] = value
       } else {
         this.currentComponent.props[propName] = value
@@ -71,6 +72,12 @@ export const useComponentStore = defineStore('component', {
     styles() {
       const id = this.currentComponent.id
       return window.getComputedStyle(document.getElementById('com-' + id))
+    },
+    editorWidth() {
+      return document.getElementById('eidtor').clientWidth
+    },
+    editorHeight() {
+      return document.getElementById('eidtor').clientHeight
     },
   },
 })

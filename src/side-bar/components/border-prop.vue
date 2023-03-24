@@ -10,7 +10,10 @@
   >
     <template #default>
       <div size="12">
-        <span class="icon-color stroke" :style="{ color: selectColor }" />
+        <span
+          class="iconfont text-18px icon-color stroke"
+          :style="{ color: selectColor }"
+        />
         <n-color-picker
           :modes="['hex']"
           :value="selectColor"
@@ -23,7 +26,7 @@
         />
       </div>
       <div size="12">
-        <span :class="'icon-line-' + selectStyle" />
+        <span class="iconfont text-18px" :class="'icon-line-' + selectStyle" />
         <n-select
           :value="selectStyle"
           @update:value="
@@ -48,11 +51,11 @@ import { useComponentStore } from '@/stores/component'
 import { rgbaToHex } from '@/utils/color.js'
 
 const component = useComponentStore()
-const { select } = storeToRefs(component)
+const { _updateFlag } = storeToRefs(component)
 const selectStyle = ref('none')
 const selectColor = ref('#00000000')
 
-watch(select, bind)
+watch(_updateFlag, bind)
 
 const borderStyle = [
   {
@@ -78,10 +81,8 @@ const borderStyle = [
 ]
 
 function bind() {
-  selectStyle.value = component.getProp('border-style', 'none', true)
-  selectColor.value = rgbaToHex(
-    component.getProp('border-color', '#00000000', true)
-  )
+  selectStyle.value = component.getProp('border-style', false, true)
+  selectColor.value = rgbaToHex(component.getProp('border-color', false, true))
 }
 
 onMounted(() => {

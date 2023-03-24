@@ -11,7 +11,7 @@
   >
     <template #default>
       <div size="12">
-        <span class="icon-width" />
+        <span class="iconfont text-18px icon-width" />
         <n-input-number
           :value="widthPx"
           @update:value="
@@ -23,7 +23,7 @@
         />
       </div>
       <div size="12">
-        <span class="icon-height" />
+        <span class="iconfont text-18px icon-height" />
         <n-input-number
           :value="heightPx"
           @update:value="
@@ -35,9 +35,22 @@
         />
       </div>
     </template>
+    <template #detail>
+      <div size="12">
+        <span class="iconfont text-18px icon-width" />
+        <n-input-number :value="widthPercent" @update:value="updateWidthPc" />
+      </div>
+      <div size="12">
+        <span class="iconfont text-18px icon-height" />
+        <n-input-number :value="heightPercent" @update:value="updateHeightPc" />
+      </div>
+    </template>
     <template #more>
       <div size="12">
-        <span class="icon-color stroke" :style="{ color: backgroundColor }" />
+        <span
+          class="iconfont text-18px icon-color stroke"
+          :style="{ color: backgroundColor }"
+        />
         <n-color-picker
           :modes="['hex']"
           :value="backgroundColor"
@@ -50,7 +63,10 @@
         />
       </div>
       <div size="12">
-        <span class="icon-color stroke" :style="{ color: textColor }" />
+        <span
+          class="iconfont text-18px icon-color stroke"
+          :style="{ color: textColor }"
+        />
         <n-color-picker
           :modes="['hex']"
           :value="textColor"
@@ -62,26 +78,63 @@
           "
         />
       </div>
+      <div size="12">
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <span class="iconfont text-18px icon-box" />
+          </template>
+          是否将内边距和边框算入width中
+        </n-tooltip>
+        <n-switch :value="boxSizing" @update:value="updateBoxSizing"></n-switch>
+      </div>
     </template>
   </BaseProps>
 </template>
 
 <script setup>
 import BaseProps from '../widgets/base-props.vue'
-import { NInputNumber, NColorPicker } from 'naive-ui'
-import { onMounted, ref, watch } from 'vue'
+import { NInputNumber, NColorPicker, NSwitch, NTooltip } from 'naive-ui'
+import { computed, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useComponentStore } from '@/stores/component'
 import { rgbaToHex } from '@/utils/color.js'
 
 const component = useComponentStore()
-const { select } = storeToRefs(component)
+const { _updateFlag, editorWidth, editorHeight } = storeToRefs(component)
 
-watch(select, bind)
+watch(_updateFlag, bind)
+
 const widthPx = ref(0)
 const heightPx = ref(0)
 const backgroundColor = ref('')
 const textColor = ref('')
+const boxSizing = ref(false)
+
+const updateWidthPc = (value) => {
+  widthPx.value = Math.round((value * editorWidth.value) / 100)
+  component.setProp('width', widthPx.value + 'px', true)
+}
+const updateHeightPc = (value) => {
+  heightPx.value = Math.round((value * editorHeight.value) / 100)
+  component.setProp('height', heightPx.value + 'px', true)
+}
+
+const updateBoxSizing = (value) => {
+  if (value) {
+    component.setProp('box-sizing', 'border-box', true)
+  } else {
+    component.setProp('box-sizing', 'content-box', true)
+  }
+  boxSizing.value = value
+}
+
+const widthPercent = computed(() => {
+  return Math.round((widthPx.value / editorWidth.value) * 100)
+})
+const heightPercent = computed(() => {
+  return Math.round((heightPx.value / editorHeight.value) * 100)
+})
+
 function bind() {
   widthPx.value = parseInt(
     component.getProp('width', false, true).split('px')[0]
@@ -93,7 +146,10 @@ function bind() {
     component.getProp('background-color', false, true)
   )
   textColor.value = rgbaToHex(component.getProp('color', false, true))
+  boxSizing.value =
+    component.getProp('box-sizing', false, true) === 'border-box'
 }
+
 onMounted(() => {
   bind()
 })

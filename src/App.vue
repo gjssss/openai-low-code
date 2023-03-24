@@ -18,4 +18,7 @@ register()
   justify-content: center;
   align-items: center;
 }
+.text-12px {
+  font-size: 12px;
+}
 </style>

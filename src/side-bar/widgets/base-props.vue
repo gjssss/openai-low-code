@@ -28,7 +28,7 @@
           {{ props.baseTitle ? props.baseTitle : '基础设置' }}
         </template>
       </n-switch>
-      <span class="iconfont px-5px" :class="props.icon" />
+      <span v-if="props.icon" class="iconfont px-5px" :class="props.icon" />
     </template>
     <template v-if="props.isSwitch">
       <prop-layout v-if="_select">
@@ -64,12 +64,12 @@ const props = defineProps([
 ])
 const _select = ref(false)
 const component = useComponentStore()
-const { currentComponent, select } = storeToRefs(component)
+const { currentComponent, _updateFlag } = storeToRefs(component)
 
 watch(_select, (newVal) => {
   currentComponent.value.settings[props.propName + '-more'] = newVal
 })
-watch(select, bind)
+watch(_updateFlag, bind)
 function bind() {
   // 将更多属性保存在setting内 如setting['padding-more'] = true
   if (currentComponent.value.settings[props.propName + '-more'] === undefined) {
