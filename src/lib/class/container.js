@@ -1,9 +1,22 @@
+import { merge } from 'lodash-es'
 import { reactive, h, withDirectives, resolveDirective } from 'vue'
 import { Base } from './base'
 
 export class Container extends Base {
   constructor(props = {}) {
     super(props)
+
+    // default style
+    if (this.name !== '__root__') {
+      merge(this.props, {
+        style: {
+          'border-style': 'solid',
+          'border-color': '#000',
+          'border-width': '1px',
+          padding: '10px',
+        },
+      })
+    }
 
     this.children = reactive([])
     this.register()
@@ -26,6 +39,13 @@ export class Container extends Base {
         ],
       ]
     )
+  }
+  addChildren(index, child) {
+    if (index > this.children.length) {
+      this.children.push(child)
+    } else {
+      this.children.splice(index, 0, child)
+    }
   }
 
   static get preview() {

@@ -5,8 +5,6 @@
 </template>
 
 <script setup>
-import { Base } from '../lib/class/base'
-import { Button } from '../lib/class/button'
 import { Container } from '../lib/class/container'
 
 const root = new Container({
@@ -24,30 +22,5 @@ const root = new Container({
   },
 })
 const rootComponent = root.render()
-
-const base = new Base({
-  name: '这是一个基类',
-  style: {
-    padding: '10px',
-    'border-style': 'solid',
-    'border-color': '#000',
-    'border-width': '1px',
-  },
-  class: ['trans-all', 'w-20px'],
-})
-const button = new Button({
-  name: '这是一个按钮',
-  class: ['trans-all'],
-})
-const container = new Container({
-  name: '容器',
-  style: {
-    padding: '20px',
-    background: 'green',
-  },
-})
-const baseComponent = base.render()
-const containerComponent = container.render()
-container.children.push(button.render())
-root.children.push(baseComponent, containerComponent)
+root.children.push()
 </script>

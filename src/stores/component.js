@@ -14,10 +14,24 @@ export const useComponentStore = defineStore('component', {
      * @returns 组件id（唯一）
      */
     push(component) {
-      const id = this.count
+      const id = this.count++
       this.compSet[id] = component
-      this.count++
       return id
+    },
+    /**
+     * 从id获取组件类
+     * @param {String|Number} id 组件id
+     * @returns 组件类实例
+     */
+    componentFromId(id) {
+      let _id
+      if (Number.isNaN(parseInt(id))) {
+        // 格式为`com-0`这种
+        _id = parseInt(id.split('-')[1])
+      } else {
+        _id = parseInt(id)
+      }
+      return this.compSet[_id]
     },
     // 属性表单重新绑定
     updateBindProp() {
