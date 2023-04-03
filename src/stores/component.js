@@ -51,7 +51,7 @@ export const useComponentStore = defineStore('component', {
      * 设置组件属性值
      * @param {String} propName 属性名称
      * @param {String} value 属性值
-     * @param {Boolean} isStyle 是否是表单元素
+     * @param {Boolean} isStyle 是否是样式元素
      */
     setProp(propName, value, isStyle) {
       if (isStyle) {

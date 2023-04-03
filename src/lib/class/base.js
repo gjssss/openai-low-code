@@ -1,4 +1,4 @@
-import { reactive, h, computed, ref } from 'vue'
+import { reactive, h, ref } from 'vue'
 import {
   registerComponent,
   selectComponent,
@@ -9,33 +9,18 @@ import {
 } from '../utils/register'
 import { merge } from 'lodash-es'
 export class Base {
-  constructor(name = 'base', props = {}) {
-    this.props = this.name = name
+  constructor(props = {}) {
+    if (Object.hasOwnProperty.call(props, 'name')) {
+      this.name = props.name
+      delete props.name
+    }
     this.isRender = false
-
     this.content = ref('')
     this.id = registerComponent(this)
     this.props = reactive(merge({ class: [], style: {} }, props))
+    this.props.id = 'com-' + this.id
     this.extraProps = reactive({})
     this.settings = reactive({}) // 保存一些组件属性管理上的设置
-    this.render = computed(() => {
-      if (this.isRender === false) {
-        this.isRender = true
-      }
-      const renderComponent = this._render()()
-      renderComponent.props.id = 'com-' + this.id
-      return () =>
-        h(
-          'div',
-          {
-            onClick: () => {
-              selectComponent(this.id)
-            },
-            class: 'select-wapper',
-          },
-          renderComponent
-        )
-    })
 
     /* 挂载注册函数 */
     this.registerPropGroup = registerPropGroup.bind(this)
@@ -45,7 +30,25 @@ export class Base {
   }
 
   _render() {
-    return () => h('div', this.props)
+    return h('div', this.props)
+  }
+
+  render() {
+    if (this.isRender === false) {
+      this.isRender = true
+    }
+    return () =>
+      h(
+        'div',
+        {
+          onClick: (event) => {
+            event.stopPropagation()
+            selectComponent(this.id)
+          },
+          class: 'select-wapper',
+        },
+        this._render()
+      )
   }
 
   static get preview() {

@@ -1,18 +1,16 @@
-import { reactive, h } from 'vue'
+import { h } from 'vue'
 import { Base } from './base'
 import { NButton } from 'naive-ui'
 export class Button extends Base {
-  constructor(name = '按钮', props = {}, option = {}) {
-    super(name, props)
-    this.option = reactive(option)
-    this.props = reactive({ ...this.props, ...this.option })
+  constructor(props = {}) {
+    super(props)
 
     this.extraProps['按钮属性'] = []
     this.register()
   }
 
   _render() {
-    return () => h(NButton, this.props, () => this.content.value)
+    return h(NButton, this.props, () => this.content.value)
   }
 
   static get preview() {

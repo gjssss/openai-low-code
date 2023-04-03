@@ -21,4 +21,8 @@ register()
 .text-12px {
   font-size: 12px;
 }
+.select-wapper {
+  width: auto;
+  display: inline-block;
+}
 </style>
