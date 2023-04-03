@@ -74,10 +74,10 @@ export const useComponentStore = defineStore('component', {
       return window.getComputedStyle(document.getElementById('com-' + id))
     },
     editorWidth() {
-      return document.getElementById('eidtor').clientWidth
+      return document.getElementById('editor').clientWidth
     },
     editorHeight() {
-      return document.getElementById('eidtor').clientHeight
+      return document.getElementById('editor').clientHeight
     },
   },
 })

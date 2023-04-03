@@ -20,7 +20,7 @@ export class Container extends Base {
         [
           drag,
           {
-            group: 'eidtor',
+            group: 'editor',
             animation: 150,
           },
         ],

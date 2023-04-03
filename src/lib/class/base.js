@@ -14,6 +14,24 @@ export class Base {
       this.name = props.name
       delete props.name
     }
+
+    this.wapper = {
+      onClick: (event) => {
+        event.stopPropagation()
+        selectComponent(this.id)
+      },
+      class: 'select-wapper',
+    }
+    this.isWapper = true
+    if (Object.hasOwnProperty.call(props, 'wapper')) {
+      if (typeof props.wapper === 'string' && props.wapper === 'none') {
+        this.isWapper = false
+      } else if (typeof props.wapper === 'object') {
+        merge(this.wapper, props.wapper)
+      }
+      delete props.wapper
+    }
+
     this.isRender = false
     this.content = ref('')
     this.id = registerComponent(this)
@@ -37,18 +55,9 @@ export class Base {
     if (this.isRender === false) {
       this.isRender = true
     }
-    return () =>
-      h(
-        'div',
-        {
-          onClick: (event) => {
-            event.stopPropagation()
-            selectComponent(this.id)
-          },
-          class: 'select-wapper',
-        },
-        this._render()
-      )
+    return this.isWapper
+      ? () => h('div', this.wapper, this._render())
+      : this._render()
   }
 
   static get preview() {

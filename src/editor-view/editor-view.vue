@@ -1,9 +1,6 @@
 <template>
-  <div id="eidtor" class="h-editor-view w-full overflow-hidden">
-    <div class="overflow-y-auto w-full h-full">
-      <base-component />
-      <container-component />
-    </div>
+  <div id="editor" class="h-editor-view w-full overflow-hidden">
+    <rootComponent> </rootComponent>
   </div>
 </template>
 
@@ -11,6 +8,23 @@
 import { Base } from '../lib/class/base'
 import { Button } from '../lib/class/button'
 import { Container } from '../lib/class/container'
+
+const root = new Container({
+  name: 'root',
+  style: {
+    width: '100%',
+    height: '100%',
+  },
+  wapper: {
+    style: {
+      width: '100%',
+      height: '100%',
+    },
+    onClick: () => {},
+  },
+})
+const rootComponent = root.render()
+
 const base = new Base({
   name: '这是一个基类',
   style: {
@@ -21,8 +35,6 @@ const base = new Base({
   },
   class: ['trans-all', 'w-20px'],
 })
-const baseComponent = base.render()
-
 const button = new Button({
   name: '这是一个按钮',
   class: ['trans-all'],
@@ -34,6 +46,8 @@ const container = new Container({
     background: 'green',
   },
 })
-container.children.push(button.render())
+const baseComponent = base.render()
 const containerComponent = container.render()
+container.children.push(button.render())
+root.children.push(baseComponent, containerComponent)
 </script>
