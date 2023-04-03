@@ -10,7 +10,7 @@ import { Button } from '../lib/class/button'
 import { Container } from '../lib/class/container'
 
 const root = new Container({
-  name: 'root',
+  name: '__root__',
   style: {
     width: '100%',
     height: '100%',

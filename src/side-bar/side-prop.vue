@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="currentComponent">
     <div class="p-10px">
       <div class="text-20px fw-600">组件名称：</div>
       <n-input
@@ -67,6 +67,12 @@
         ></component>
       </n-collapse-item>
     </n-collapse>
+  </div>
+  <div v-else>
+    <div class="mt-20px text-24px text-center fw-500">
+      <div>还没有选中组件哦</div>
+      <div>(●'◡'●)</div>
+    </div>
   </div>
 </template>
 

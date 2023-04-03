@@ -63,7 +63,7 @@ export const useComponentStore = defineStore('component', {
   },
   getters: {
     currentComponent: (state) => {
-      if (state.select < 0) {
+      if (state.select < 0 || state.compSet[state.select].name === '__root__') {
         return null
       } else {
         return state.compSet[state.select]
