@@ -52,13 +52,16 @@ export function registerPropGroup(formOption, ...propFroms) {
  * @param {Object} selectOption 选择表单选项
  * @param {string|number} selectOption.default - 默认值
  * @param {string[]|number[]} selectOption.options - 可选项
+ * @param {string[]|number[]|null} selectOption.names - 可选项
  */
 export function registerSelect(formOption, selectOption) {
   // 根据组件要求属性格式转化option
   const _options = []
   for (let i in selectOption.options) {
     _options.push({
-      label: selectOption.options[i],
+      label: selectOption.names
+        ? selectOption.names[i]
+        : selectOption.options[i],
       value: selectOption.options[i],
     })
   }
@@ -79,6 +82,7 @@ export function registerSelect(formOption, selectOption) {
       h(NSelect, {
         value: get(this, formOption.path),
         onUpdateValue: (value) => {
+          console.log(value)
           set(this, formOption.path, value)
           if (formOption.isClear) {
             this.clearStyle()

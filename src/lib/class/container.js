@@ -109,6 +109,7 @@ export class Container extends Base {
           {
             default: 'row',
             options: ['row', 'column', 'column-reverse', 'row-reverse'],
+            names: ['横向', '纵向', '纵向反向', '横向反向'],
           }
         )
       ),
