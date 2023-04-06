@@ -1,15 +1,57 @@
 <template>
-  <div id="component" class="p-20px" v-drag="dragOption">
-    <btn name="Button"></btn>
-    <container name="Container"></container>
+  <div id="component" class="p-20px">
+    <div class="flex justify-between">
+      <div class="w-80px h-100px">
+        <div
+          class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
+          v-drag="dragOption"
+        >
+          <btn name="Button" />
+        </div>
+        <div class="w-full h-20px flex-center text-14px">
+          <n-tooltip trigger="hover">
+            <template #trigger> 按钮 </template>
+            按钮就是用来按的
+          </n-tooltip>
+        </div>
+      </div>
+      <div class="w-80px h-100px">
+        <div
+          class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
+          v-drag="dragOption"
+        >
+          <container name="Container" />
+        </div>
+        <div class="w-full h-20px flex-center text-14px">
+          <n-tooltip trigger="hover">
+            <template #trigger> 容器 </template>
+            可以往里面放点东西
+          </n-tooltip>
+        </div>
+      </div>
+      <div class="w-80px h-100px">
+        <div
+          class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
+          v-drag="dragOption"
+        >
+          <btn name="Button" />
+        </div>
+        <div class="w-full h-20px flex-center text-14px">
+          <n-tooltip trigger="hover">
+            <template #trigger> 按钮 </template>
+            按钮就是用来按的
+          </n-tooltip>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useComponentStore } from '@/stores/component'
+import { NTooltip } from 'naive-ui'
 import { Button } from '../lib/class/button'
 import { Container } from '../lib/class/container'
-
 const btn = Button.preview
 const container = Container.preview
 const component = useComponentStore()

@@ -5,7 +5,6 @@ export class Button extends Base {
   constructor(props = {}) {
     super(props)
 
-    this.extraProps['按钮属性'] = []
     this.register()
   }
 
@@ -18,11 +17,11 @@ export class Button extends Base {
   }
 
   register() {
-    this.extraProps['按钮属性'].push(
+    this.extraProps['按钮属性'] = [
       this.registerPropGroup(
         { name: '按钮' },
         this.registerSelect(
-          { name: 'type', icon: '类型', size: 12 },
+          { path: 'props.type', icon: '类型', size: 12, isClear: true },
           {
             default: 'default',
             options: [
@@ -37,19 +36,20 @@ export class Button extends Base {
           }
         ),
         this.registerSwitch(
-          { name: 'circle', icon: '圆角', size: 12 },
+          { path: 'props.circle', icon: '圆角', size: 12, isClear: true },
           {
             default: false,
+            on: true,
+            off: false,
           }
         ),
         this.registerInput(
-          { name: 'circle', icon: '内容', size: 24 },
+          { path: 'content.value', icon: '内容', size: 24 },
           {
             default: '按钮',
-            isContent: true,
           }
         )
-      )
-    )
+      ),
+    ]
   }
 }

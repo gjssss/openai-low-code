@@ -1,3 +1,4 @@
+import { useComponentStore } from '@/stores/component'
 import { merge } from 'lodash-es'
 import { reactive, h, withDirectives, resolveDirective } from 'vue'
 import { Base } from './base'
@@ -13,7 +14,7 @@ export class Container extends Base {
           'border-style': 'solid',
           'border-color': '#000',
           'border-width': '1px',
-          padding: '10px',
+          padding: '30px',
         },
       })
     }
@@ -23,6 +24,7 @@ export class Container extends Base {
   }
   _render() {
     const drag = resolveDirective('drag')
+    const component = useComponentStore()
     return withDirectives(
       h(
         'div',
@@ -35,6 +37,22 @@ export class Container extends Base {
           {
             group: 'editor',
             animation: 150,
+            onEnd: function (e) {
+              // 获得拖拽组件id和实例
+              const lastID = e.from.id
+              const nextID = e.to.id
+              const lastInstance = component.componentFromId(lastID)
+              const nextInstance = component.componentFromId(nextID)
+
+              // 将组件从旧的里面拿出来放到新的容器里面
+              const { oldIndex, newIndex } = e
+              nextInstance.children.splice(
+                newIndex,
+                0,
+                ...lastInstance.children.splice(oldIndex, 1)
+              )
+              // console.log(lastInstance, nextInstance)
+            },
           },
         ],
       ]
@@ -49,8 +67,51 @@ export class Container extends Base {
   }
 
   static get preview() {
-    return h('div', {}, '为什么在这里放点东西呢')
+    return h(
+      'div',
+      {
+        style: {
+          'border-style': 'solid',
+          'border-color': '#000',
+          'border-width': '1px',
+          padding: '30px',
+          display: 'inline-block',
+        },
+      },
+      ''
+    )
   }
 
-  register() {}
+  register() {
+    this.extraProps['容器属性'] = [
+      this.registerPropGroup(
+        {
+          name: 'Flex布局',
+        },
+        this.registerSwitch(
+          {
+            path: 'props.style.display',
+            icon: 'Flex',
+            size: 12,
+          },
+          {
+            default: 'block',
+            on: 'flex',
+            off: 'block',
+          }
+        ),
+        this.registerSelect(
+          {
+            path: 'props.style.flex-direction',
+            icon: '方向',
+            size: 12,
+          },
+          {
+            default: 'row',
+            options: ['row', 'column', 'column-reverse', 'row-reverse'],
+          }
+        )
+      ),
+    ]
+  }
 }

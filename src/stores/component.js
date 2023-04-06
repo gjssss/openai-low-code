@@ -21,7 +21,7 @@ export const useComponentStore = defineStore('component', {
     /**
      * 从id获取组件类
      * @param {String|Number} id 组件id
-     * @returns 组件类实例
+     * @returns {Base} 组件类实例
      */
     componentFromId(id) {
       let _id

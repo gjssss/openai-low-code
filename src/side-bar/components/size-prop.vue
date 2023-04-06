@@ -87,6 +87,15 @@
         </n-tooltip>
         <n-switch :value="boxSizing" @update:value="updateBoxSizing"></n-switch>
       </div>
+      <div size="12">
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <span class="iconfont text-18px icon-text-overflow" />
+          </template>
+          发生溢出是否隐藏
+        </n-tooltip>
+        <n-switch :value="overflow" @update:value="updateOverflow"></n-switch>
+      </div>
     </template>
   </BaseProps>
 </template>
@@ -109,6 +118,7 @@ const heightPx = ref(0)
 const backgroundColor = ref('')
 const textColor = ref('')
 const boxSizing = ref(false)
+const overflow = ref(false)
 
 const updateWidthPc = (value) => {
   widthPx.value = Math.round((value * editorWidth.value) / 100)
@@ -120,12 +130,13 @@ const updateHeightPc = (value) => {
 }
 
 const updateBoxSizing = (value) => {
-  if (value) {
-    component.setProp('box-sizing', 'border-box', true)
-  } else {
-    component.setProp('box-sizing', 'content-box', true)
-  }
+  component.setProp('box-sizing', value ? 'border-box' : 'content-box', true)
   boxSizing.value = value
+}
+
+const updateOverflow = (value) => {
+  component.setProp('overflow', value ? 'hidden' : 'visible', true)
+  overflow.value = value
 }
 
 const widthPercent = computed(() => {
@@ -148,6 +159,7 @@ function bind() {
   textColor.value = rgbaToHex(component.getProp('color', false, true))
   boxSizing.value =
     component.getProp('box-sizing', false, true) === 'border-box'
+  overflow.value = component.getProp('overflow', false, true) === 'hidden'
 }
 
 onMounted(() => {

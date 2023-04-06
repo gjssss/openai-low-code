@@ -9,6 +9,9 @@ register()
 </template>
 
 <style>
+:root {
+  --border-color: rgba(0, 0, 0, 0.1);
+}
 * {
   margin: 0;
   padding: 0;
