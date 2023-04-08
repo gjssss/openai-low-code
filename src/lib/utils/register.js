@@ -84,7 +84,6 @@ export function registerSelect(formOption, selectOption) {
       h(NSelect, {
         value: get(this, formOption.path),
         onUpdateValue: (value) => {
-          console.log(value)
           set(this, formOption.path, value)
           if (formOption.isClear) {
             this.clearStyle()

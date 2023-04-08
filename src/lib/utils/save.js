@@ -16,7 +16,6 @@ export function savePage() {
 
 export function loadPage() {
   let page = localStorage.getItem('page-1')
-  console.log(page)
   try {
     page = JSON.parse(page)
   } catch (error) {
@@ -24,6 +23,7 @@ export function loadPage() {
     return
   }
   if (page) {
+    component.root.children.splice(0)
     parsePage(component.root, page)
     window.$message.success('加载成功')
   } else {
