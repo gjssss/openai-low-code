@@ -1,11 +1,17 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import { register } from '@/lib/utils/register'
+import { saveRegister } from '@/lib/utils/save'
+import { NMessageProvider } from 'naive-ui'
+
 register()
+saveRegister()
 </script>
 
 <template>
-  <RouterView />
+  <NMessageProvider>
+    <RouterView />
+  </NMessageProvider>
 </template>
 
 <style>

@@ -76,6 +76,7 @@ const dragOption = {
         [{ name: e.item.getAttribute('name'), class: ['trans-all'] }]
       )
       instance.addChildren(e.newIndex, newComponent.render())
+      // 清除原有的item
       document.getElementById(e.to.id).removeChild(e.item)
     }
   },

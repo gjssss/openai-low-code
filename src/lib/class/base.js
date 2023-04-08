@@ -1,4 +1,4 @@
-import { reactive, h, ref } from 'vue'
+import { reactive, h, ref, toRaw } from 'vue'
 import {
   registerComponent,
   selectComponent,
@@ -7,12 +7,19 @@ import {
   registerSwitch,
   registerInput,
 } from '../utils/register'
-import { merge } from 'lodash-es'
+import { cloneDeep, merge } from 'lodash-es'
 export class Base {
   constructor(props = {}) {
     if (Object.hasOwnProperty.call(props, 'name')) {
       this.name = props.name
       delete props.name
+    }
+
+    if (Object.hasOwnProperty.call(props, 'plant')) {
+      this.plant = props.plant
+      delete props.plant
+    } else {
+      this.plant = false
     }
 
     this.wapper = {
@@ -28,10 +35,12 @@ export class Base {
         this.isWapper = false
       } else if (typeof props.wapper === 'object') {
         merge(this.wapper, props.wapper)
+        this._wapper = props.wapper
       }
       delete props.wapper
     }
 
+    this.__type__ = 'Base'
     this.isRender = false
     this.content = ref('')
     this.id = registerComponent(this)
@@ -66,5 +75,15 @@ export class Base {
 
   clearStyle() {
     this.props.style = {}
+  }
+
+  // 将对象json化
+  jsonify() {
+    const props = cloneDeep(toRaw(this.props))
+    props.name = cloneDeep(toRaw(this.name))
+    props.wapper = cloneDeep(toRaw(this._wapper) ? this._wapper : {})
+    props.content = cloneDeep(toRaw(this.content))
+    props.__type__ = cloneDeep(toRaw(this.__type__))
+    return props
   }
 }

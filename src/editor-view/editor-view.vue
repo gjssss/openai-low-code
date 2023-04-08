@@ -9,6 +9,7 @@ import { Container } from '../lib/class/container'
 
 const root = new Container({
   name: '__root__',
+  plant: true,
   style: {
     width: '100%',
     height: '100%',

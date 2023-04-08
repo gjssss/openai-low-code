@@ -66,8 +66,10 @@ export function registerSelect(formOption, selectOption) {
     })
   }
   // 设置属性默认值
-
-  set(this, formOption.path, selectOption.default)
+  const lastValue = get(this, formOption.path)
+  if (lastValue === undefined || lastValue === null) {
+    set(this, formOption.path, selectOption.default)
+  }
   return () =>
     h('div', { size: formOption.size ? formOption.size : 24 }, [
       h(
@@ -108,7 +110,10 @@ export function registerSelect(formOption, selectOption) {
  */
 export function registerSwitch(formOption, switchOption) {
   // 设置属性默认值
-  set(this, formOption.path, switchOption.default)
+  const lastValue = get(this, formOption.path)
+  if (lastValue === undefined || lastValue === null) {
+    set(this, formOption.path, switchOption.default)
+  }
   return () =>
     h('div', { size: formOption.size ? formOption.size : 24 }, [
       h(
@@ -144,7 +149,10 @@ export function registerSwitch(formOption, switchOption) {
  * @param {string|number} inputOption.default - 默认值
  */
 export function registerInput(formOption, inputOption) {
-  set(this, formOption.path, inputOption.default)
+  const lastValue = get(this, formOption.path)
+  if (lastValue === undefined || lastValue === null) {
+    set(this, formOption.path, inputOption.default)
+  }
   return () =>
     h('div', { size: formOption.size ? formOption.size : 24 }, [
       h(

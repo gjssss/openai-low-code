@@ -4,6 +4,12 @@ import { NButton } from 'naive-ui'
 export class Button extends Base {
   constructor(props = {}) {
     super(props)
+    if (Object.hasOwnProperty.call(props, 'content')) {
+      this.content.value = props.content
+    } else {
+      this.content.value = '按钮'
+    }
+    this.__type__ = 'Button'
 
     this.register()
   }

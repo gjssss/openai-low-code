@@ -6,9 +6,10 @@ import { Base } from './base'
 export class Container extends Base {
   constructor(props = {}) {
     super(props)
+    this.__type__ = 'Container'
 
     // default style
-    if (this.name !== '__root__') {
+    if (!this.plant) {
       merge(this.props, {
         style: {
           'border-style': 'solid',
@@ -51,7 +52,6 @@ export class Container extends Base {
                 0,
                 ...lastInstance.children.splice(oldIndex, 1)
               )
-              // console.log(lastInstance, nextInstance)
             },
           },
         ],
@@ -111,8 +111,72 @@ export class Container extends Base {
             options: ['row', 'column', 'column-reverse', 'row-reverse'],
             names: ['横向', '纵向', '纵向反向', '横向反向'],
           }
+        ),
+        this.registerSelect(
+          {
+            path: 'props.style.justify-content',
+            icon: '主轴',
+            size: 12,
+          },
+          {
+            default: 'start',
+            options: [
+              'start',
+              'end',
+              'center',
+              'space-between',
+              'space-around',
+              'space-evenly',
+            ],
+            names: [
+              '起始对齐',
+              '末尾对齐',
+              '中心对齐',
+              '均匀分配',
+              'around',
+              'evenly',
+            ],
+          }
+        ),
+        this.registerSelect(
+          {
+            path: 'props.style.align-items',
+            icon: '副轴',
+            size: 12,
+          },
+          {
+            default: 'start',
+            options: [
+              'start',
+              'end',
+              'center',
+              'space-between',
+              'space-around',
+              'space-evenly',
+            ],
+            names: [
+              '起始对齐',
+              '末尾对齐',
+              '中心对齐',
+              '均匀分配',
+              'around',
+              'evenly',
+            ],
+          }
         )
       ),
     ]
+  }
+
+  jsonify() {
+    const props = super.jsonify()
+    props.children = []
+    for (let i in this.children) {
+      const child = this.children[i]().children[0]
+      const component = useComponentStore()
+      const childInstance = component.componentFromId(child.props.id)
+      props.children.push(childInstance.jsonify())
+    }
+    return props
   }
 }

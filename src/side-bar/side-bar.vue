@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-sider-bar h-screen hover:shadow-xl shadow-md overflow-auto scroller"
+    class="w-sider-bar h-screen hover:shadow-xl shadow-md overflow-auto scroller bg-white"
   >
     <n-tabs
       type="line"

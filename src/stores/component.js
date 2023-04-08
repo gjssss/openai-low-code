@@ -6,6 +6,7 @@ export const useComponentStore = defineStore('component', {
     count: 0,
     select: 0,
     _updateFlag: false, // 用于控制属性表单更新
+    __root__: null,
   }),
   actions: {
     /**
@@ -16,6 +17,9 @@ export const useComponentStore = defineStore('component', {
     push(component) {
       const id = this.count++
       this.compSet[id] = component
+      if (component.name === '__root__') {
+        this.__root__ = id
+      }
       return id
     },
     /**
@@ -83,15 +87,18 @@ export const useComponentStore = defineStore('component', {
         return state.compSet[state.select]
       }
     },
-    styles() {
-      const id = this.currentComponent.id
+    styles: (state) => {
+      const id = state.compSet[state.select].id
       return window.getComputedStyle(document.getElementById('com-' + id))
     },
-    editorWidth() {
+    editorWidth: () => {
       return document.getElementById('editor').clientWidth
     },
-    editorHeight() {
+    editorHeight: () => {
       return document.getElementById('editor').clientHeight
+    },
+    root: (state) => {
+      return state.compSet[state.__root__]
     },
   },
 })
