@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { Container } from '../lib/class/container'
+import { Container } from '../lib'
 
 const root = new Container({
   name: '__root__',
@@ -14,7 +14,7 @@ const root = new Container({
     width: '100%',
     height: '100%',
   },
-  wapper: {
+  wrapper: {
     style: {
       width: '100%',
       height: '100%',
@@ -23,5 +23,4 @@ const root = new Container({
   },
 })
 const rootComponent = root.render()
-root.children.push()
 </script>

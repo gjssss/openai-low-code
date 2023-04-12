@@ -1,5 +1,5 @@
-import { Base } from './class/base'
 import { Button } from './class/button'
 import { Container } from './class/container'
+import { Text } from './class/text'
 
-export { Base, Button, Container }
+export { Button, Container, Text }

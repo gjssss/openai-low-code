@@ -30,7 +30,7 @@ saveRegister()
 .text-12px {
   font-size: 12px;
 }
-.select-wapper {
+.select-wrapper {
   width: auto;
   display: inline-block;
 }

@@ -1,21 +1,19 @@
 import { h } from 'vue'
-import { Base } from './base'
+import { Text } from './text'
 import { NButton } from 'naive-ui'
-export class Button extends Base {
+export class Button extends Text {
   constructor(props = {}) {
-    super(props)
-    if (Object.hasOwnProperty.call(props, 'content')) {
-      this.content.value = props.content
-    } else {
-      this.content.value = '按钮'
+    if (!Object.hasOwnProperty.call(props, 'content')) {
+      props.content = '按钮'
     }
+    super(props)
     this.__type__ = 'Button'
 
     this.register()
   }
 
   _render() {
-    return h(NButton, this.props, () => this.content.value)
+    return h(NButton, this.props, () => super._render())
   }
 
   static get preview() {
@@ -23,6 +21,7 @@ export class Button extends Base {
   }
 
   register() {
+    super.register()
     this.extraProps['按钮属性'] = [
       this.registerPropGroup(
         { name: '按钮' },
@@ -47,12 +46,6 @@ export class Button extends Base {
             default: false,
             on: true,
             off: false,
-          }
-        ),
-        this.registerInput(
-          { path: 'content.value', icon: '内容', size: 24 },
-          {
-            default: '按钮',
           }
         )
       ),

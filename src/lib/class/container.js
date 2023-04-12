@@ -22,6 +22,11 @@ export class Container extends Base {
 
     this.children = reactive([])
     this.register()
+
+    // setTimeout(() => {
+    //   this.children.reverse()
+    //   console.log(this.children.map((i) => i()))
+    // }, 5000)
   }
   _render() {
     const drag = resolveDirective('drag')
@@ -30,7 +35,7 @@ export class Container extends Base {
       h(
         'div',
         this.props,
-        this.children.map((i) => i())
+        this.children.map((i) => i.render()())
       ),
       [
         [
@@ -38,13 +43,20 @@ export class Container extends Base {
           {
             group: 'editor',
             animation: 150,
-            onEnd: function (e) {
-              // 获得拖拽组件id和实例
+            onEnd: (e) => {
+              // // 获得拖拽组件id和实例
+              // const itemEl = e.item
+              // // 获取原始父级元素
+              // const parentEl = e.from
+              // // 获取原始位置索引
+              // const index = e.oldIndex
+              // // 将元素插入到原始位置
+              // parentEl.insertBefore(itemEl, parentEl.children[index])
+
               const lastID = e.from.id
               const nextID = e.to.id
               const lastInstance = component.componentFromId(lastID)
               const nextInstance = component.componentFromId(nextID)
-
               // 将组件从旧的里面拿出来放到新的容器里面
               const { oldIndex, newIndex } = e
               nextInstance.children.splice(
@@ -52,6 +64,7 @@ export class Container extends Base {
                 0,
                 ...lastInstance.children.splice(oldIndex, 1)
               )
+              // console.log(this.children.map((i) => i()))
             },
           },
         ],

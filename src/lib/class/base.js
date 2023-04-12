@@ -10,6 +10,7 @@ import {
 import { cloneDeep, merge } from 'lodash-es'
 export class Base {
   constructor(props = {}) {
+    this.id = registerComponent(this)
     if (Object.hasOwnProperty.call(props, 'name')) {
       this.name = props.name
       delete props.name
@@ -22,28 +23,29 @@ export class Base {
       this.plant = false
     }
 
-    this.wapper = {
+    this.wrapper = {
       onClick: (event) => {
         event.stopPropagation()
         selectComponent(this.id)
       },
-      class: 'select-wapper',
+      class: 'select-wrapper',
+      key: this.id,
     }
-    this.isWapper = true
-    if (Object.hasOwnProperty.call(props, 'wapper')) {
-      if (typeof props.wapper === 'string' && props.wapper === 'none') {
-        this.isWapper = false
-      } else if (typeof props.wapper === 'object') {
-        merge(this.wapper, props.wapper)
-        this._wapper = props.wapper
+    this.isWrapper = true
+    if (Object.hasOwnProperty.call(props, 'wrapper')) {
+      if (typeof props.wrapper === 'string' && props.wrapper === 'none') {
+        this.isWrapper = false
+      } else if (typeof props.wrapper === 'object') {
+        merge(this.wrapper, props.wrapper)
+        this._wrapper = props.wrapper
       }
-      delete props.wapper
+      delete props.wrapper
     }
-
+    this.content = ref(props.content)
+    delete props.content
     this.__type__ = 'Base'
     this.isRender = false
-    this.content = ref('')
-    this.id = registerComponent(this)
+
     this.props = reactive(merge({ class: [], style: {} }, props))
     this.props.id = 'com-' + this.id
     this.extraProps = reactive({})
@@ -64,14 +66,16 @@ export class Base {
     if (this.isRender === false) {
       this.isRender = true
     }
-    return this.isWapper
-      ? () => h('div', this.wapper, this._render())
+    return this.isWrapper
+      ? () => h('div', this.wrapper, this._render())
       : this._render()
   }
 
   static get preview() {
     return h('div', {}, 'Base')
   }
+
+  register() {}
 
   clearStyle() {
     this.props.style = {}
@@ -81,7 +85,7 @@ export class Base {
   jsonify() {
     const props = cloneDeep(toRaw(this.props))
     props.name = cloneDeep(toRaw(this.name))
-    props.wapper = cloneDeep(toRaw(this._wapper) ? this._wapper : {})
+    props.wrapper = cloneDeep(toRaw(this._wrapper) ? this._wrapper : {})
     props.content = cloneDeep(toRaw(this.content))
     props.__type__ = cloneDeep(toRaw(this.__type__))
     return props
