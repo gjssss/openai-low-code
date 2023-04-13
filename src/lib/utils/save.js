@@ -10,6 +10,7 @@ export function saveRegister() {
 
 export function savePage() {
   const page = JSON.stringify(component.root.jsonify().children)
+  // console.log(page)
   localStorage.setItem('page-1', page)
   window.$message.success('保存成功')
 }
@@ -49,6 +50,6 @@ function parsePage(root, children) {
     } else {
       instance = Reflect.construct(classes[type], [child])
     }
-    root.children.push(instance.render())
+    root.children.push(instance)
   })
 }

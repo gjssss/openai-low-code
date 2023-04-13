@@ -10,10 +10,11 @@ import {
 import { cloneDeep, merge } from 'lodash-es'
 export class Base {
   constructor(props = {}) {
-    this.id = registerComponent(this)
     if (Object.hasOwnProperty.call(props, 'name')) {
       this.name = props.name
       delete props.name
+    } else {
+      this.name = 'component'
     }
 
     if (Object.hasOwnProperty.call(props, 'plant')) {
@@ -22,6 +23,8 @@ export class Base {
     } else {
       this.plant = false
     }
+
+    this.id = registerComponent(this)
 
     this.wrapper = {
       onClick: (event) => {
@@ -41,15 +44,16 @@ export class Base {
       }
       delete props.wrapper
     }
+
+    this.props = reactive(merge({ class: [], style: {} }, props))
+    this.extraProps = reactive({})
+    this.settings = reactive({}) // 保存一些组件属性管理上的设置
+
+    this.props.id = 'com-' + this.id
     this.content = ref(props.content)
     delete props.content
     this.__type__ = 'Base'
     this.isRender = false
-
-    this.props = reactive(merge({ class: [], style: {} }, props))
-    this.props.id = 'com-' + this.id
-    this.extraProps = reactive({})
-    this.settings = reactive({}) // 保存一些组件属性管理上的设置
 
     /* 挂载注册函数 */
     this.registerPropGroup = registerPropGroup.bind(this)
@@ -88,6 +92,7 @@ export class Base {
     props.wrapper = cloneDeep(toRaw(this._wrapper) ? this._wrapper : {})
     props.content = cloneDeep(toRaw(this.content))
     props.__type__ = cloneDeep(toRaw(this.__type__))
+    delete props.id
     return props
   }
 }

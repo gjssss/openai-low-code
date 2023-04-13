@@ -42,6 +42,7 @@ export const useComponentStore = defineStore('component', {
       this._updateFlag = !this._updateFlag
     },
     updateThenBind() {
+      // TODO: 修复改变组件属性后组件样式绑定问题
       // 对于改变组件属性后，其样式不会立马改变（nextTick也不行），目前就想到这个方法
       setTimeout(() => {
         this.updateBindProp()
