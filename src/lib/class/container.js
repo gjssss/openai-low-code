@@ -45,11 +45,11 @@ export class Container extends Base {
               const nextInstance = component.componentFromId(nextID)
               // 将组件从旧的里面拿出来放到新的容器里面
               const { oldIndex, newIndex } = e
-              nextInstance.children.splice(
-                newIndex,
-                0,
-                ...lastInstance.children.splice(oldIndex, 1)
-              )
+              const child = lastInstance.children.splice(oldIndex, 1)[0]
+              if (lastInstance !== nextInstance) {
+                child.father = nextInstance
+              }
+              nextInstance.children.splice(newIndex, 0, child)
             },
           },
         ],

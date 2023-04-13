@@ -79,6 +79,16 @@ export const useComponentStore = defineStore('component', {
         this.currentComponent.props[propName] = value
       }
     },
+
+    delComponent(component) {
+      const _father = component.father
+      const index = _father.children.indexOf(component)
+      _father.children.splice(index, 1)
+    },
+    delCurrentComponent() {
+      this.delComponent(this.currentComponent)
+      this.select = 0
+    },
   },
   getters: {
     currentComponent: (state) => {

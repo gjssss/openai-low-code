@@ -24,6 +24,13 @@ export class Base {
       this.plant = false
     }
 
+    if (Object.hasOwnProperty.call(props, 'father')) {
+      this.father = props.father
+      delete props.father
+    } else {
+      this.father = this
+    }
+
     this.id = registerComponent(this)
 
     this.wrapper = {

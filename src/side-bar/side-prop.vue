@@ -1,13 +1,19 @@
 <template>
   <div v-if="currentComponent">
-    <div class="p-10px">
-      <div class="text-20px fw-600">组件名称：</div>
-      <n-input
-        type="text"
-        size="small"
-        placeholder="组件名称"
-        v-model:value.trim="currentComponent.name"
-        :round="true"
+    <div class="p-10px flex items-center">
+      <div class="text-18px fw-600 w-a">名称：</div>
+      <div>
+        <n-input
+          type="text"
+          size="small"
+          placeholder="名称"
+          v-model:value.trim="currentComponent.name"
+          :round="true"
+        />
+      </div>
+      <div
+        class="iconfont icon-delete text-24px w-20px h-20px flex-center rounded-50% px-5px cursor-pointer hover:text-red trans-all"
+        @click="delHandle"
       />
     </div>
     <n-collapse
@@ -86,6 +92,11 @@ import { NCollapse, NCollapseItem, NInput } from 'naive-ui'
 
 const component = useComponentStore()
 const { currentComponent } = storeToRefs(component)
+
+function delHandle() {
+  component.delCurrentComponent()
+  console.log(component.root.children)
+}
 </script>
 
 <style>
