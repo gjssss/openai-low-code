@@ -1,7 +1,7 @@
 import baseProps from '@/side-bar/widgets/base-props.vue'
 import { useComponentStore } from '@/stores/component'
 import { get, set } from 'lodash-es'
-import { NSelect, NSwitch, NInput } from 'naive-ui'
+import { NSelect, NSwitch, NInput, NColorPicker } from 'naive-ui'
 import { h } from 'vue'
 let component
 
@@ -164,6 +164,47 @@ export function registerInput(formOption, inputOption) {
         formOption.icon.includes('icon') ? '' : formOption.icon
       ),
       h(NInput, {
+        value: get(this, formOption.path),
+        onUpdateValue: (value) => {
+          set(this, formOption.path, value)
+          if (formOption.isClear) {
+            this.clearStyle()
+            component.updateThenBind()
+          }
+        },
+      }),
+    ])
+}
+
+/**
+ * 注册颜色选择表单属性
+ * @param {Object} formOption 表单选项
+ * @param {string} formOption.path 属性路径
+ * @param {string?} formOption.icon 属性icon或名称
+ * @param {string?} formOption.size 属性表单所占大小
+ * @param {Boolean?} formOption.isClear 是否重新绑定属性（一般用于组件自带属性）
+ * @param {Object} colorOption 颜色选择表单选项
+ * @param {string} colorOption.default 默认颜色值
+ */
+export function registerColorPicker(formOption, colorOption) {
+  // 设置属性默认值
+  const lastValue = get(this, formOption.path)
+  if (lastValue === undefined || lastValue === null) {
+    set(this, formOption.path, colorOption.default)
+  }
+  return () =>
+    h('div', { size: formOption.size ? formOption.size : 24 }, [
+      h(
+        'span',
+        {
+          class: 'iconfont icon-color stroke',
+          style: {
+            color: get(this, formOption.path),
+          },
+        },
+        ''
+      ),
+      h(NColorPicker, {
         value: get(this, formOption.path),
         onUpdateValue: (value) => {
           set(this, formOption.path, value)

@@ -63,22 +63,6 @@
         />
       </div>
       <div size="12">
-        <span
-          class="iconfont text-18px icon-color stroke"
-          :style="{ color: textColor }"
-        />
-        <n-color-picker
-          :modes="['hex']"
-          :value="textColor"
-          @update:value="
-            (value) => {
-              component.setProp('color', value, true)
-              textColor = value
-            }
-          "
-        />
-      </div>
-      <div size="12">
         <n-tooltip trigger="hover">
           <template #trigger>
             <span class="iconfont text-18px icon-box" />

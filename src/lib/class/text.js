@@ -30,6 +30,15 @@ export class Text extends Base {
           {
             default: '文本',
           }
+        ),
+        this.registerColorPicker(
+          {
+            path: 'props.style.color',
+            size: 12,
+          },
+          {
+            default: '#000000FF',
+          }
         )
       ),
     ]
