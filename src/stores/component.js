@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 
 export const useComponentStore = defineStore('component', {
   state: () => ({
-    compSet: {}, // 组件集
+    compSet: [], // 组件集
     count: 0, // 组件数量
-    select: 0, // 当前选中组件id
+    select: -1, // 当前选中组件id
     _updateFlag: false, // 用于控制属性表单更新
     __root__: null, // 页面根组件
   }),
@@ -98,7 +98,15 @@ export const useComponentStore = defineStore('component', {
      */
     delCurrentComponent() {
       this.delComponent(this.currentComponent)
-      this.select = 0
+      this.select = -1
+    },
+    /**
+     * 清空组件集
+     */
+    clear() {
+      this.compSet.splice(1)
+      this.count = 1
+      this.select = -1
     },
   },
   getters: {
