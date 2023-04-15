@@ -31,6 +31,31 @@ export class Text extends Base {
             default: '文本',
           }
         ),
+        this.registerInputNumber(
+          {
+            path: 'props.style.font-size',
+            icon: 'iconfont icon-fontsize',
+            size: 12,
+          },
+          {
+            default: '14px',
+            suffix: 'px',
+            min: 0,
+          }
+        ),
+        this.registerInputNumber(
+          {
+            path: 'props.style.font-weight',
+            icon: 'iconfont icon-zitijiacu',
+            size: 12,
+          },
+          {
+            default: '400',
+            min: 100,
+            max: 900,
+            step: 100,
+          }
+        ),
         this.registerColorPicker(
           {
             path: 'props.style.color',

@@ -1,7 +1,7 @@
 import baseProps from '@/side-bar/widgets/base-props.vue'
 import { useComponentStore } from '@/stores/component'
 import { get, set } from 'lodash-es'
-import { NSelect, NSwitch, NInput, NColorPicker } from 'naive-ui'
+import { NSelect, NSwitch, NInput, NColorPicker, NInputNumber } from 'naive-ui'
 import { h } from 'vue'
 let component
 
@@ -213,6 +213,57 @@ export function registerColorPicker(formOption, colorOption) {
             component.updateThenBind()
           }
         },
+      }),
+    ])
+}
+
+/**
+ * 注册数字输入表单属性
+ * @param {Object} formOption 表单选项
+ * @param {string} formOption.path 属性路径
+ * @param {string?} formOption.icon 属性icon或名称
+ * @param {string?} formOption.size 属性表单所占大小
+ * @param {Boolean?} formOption.isClear 是否重新绑定属性（一般用于组件自带属性）
+ * @param {Object} inputNumberOption 数字输入表单选项
+ * @param {number} inputNumberOption.default 默认值
+ * @param {string} inputNumberOption.suffix 后缀
+ * @param {number} inputNumberOption.min 最小值
+ * @param {number} inputNumberOption.max 最大值
+ * @param {number} inputNumberOption.step 步长
+ */
+export function registerInputNumber(formOption, inputNumberOption) {
+  // 设置属性默认值
+  const lastValue = get(this, formOption.path)
+  if (lastValue === undefined || lastValue === null) {
+    set(this, formOption.path, inputNumberOption.default)
+  }
+  return () =>
+    h('div', { size: formOption.size ? formOption.size : 24 }, [
+      h(
+        'span',
+        {
+          class: formOption.icon.includes('icon')
+            ? formOption.icon
+            : 'text-12px',
+        },
+        formOption.icon.includes('icon') ? '' : formOption.icon
+      ),
+      h(NInputNumber, {
+        value: parseInt(get(this, formOption.path)),
+        onUpdateValue: (value) => {
+          set(
+            this,
+            formOption.path,
+            value + (inputNumberOption.suffix ? inputNumberOption.suffix : '')
+          )
+          if (formOption.isClear) {
+            this.clearStyle()
+            component.updateThenBind()
+          }
+        },
+        min: inputNumberOption.min,
+        max: inputNumberOption.max,
+        step: inputNumberOption.step,
       }),
     ])
 }

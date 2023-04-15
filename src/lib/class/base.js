@@ -7,6 +7,7 @@ import {
   registerSwitch,
   registerInput,
   registerColorPicker,
+  registerInputNumber,
 } from '../utils/register'
 import { cloneDeep, merge } from 'lodash-es'
 export class Base {
@@ -69,6 +70,7 @@ export class Base {
     this.registerSwitch = registerSwitch.bind(this)
     this.registerInput = registerInput.bind(this)
     this.registerColorPicker = registerColorPicker.bind(this)
+    this.registerInputNumber = registerInputNumber.bind(this)
   }
 
   _render() {
