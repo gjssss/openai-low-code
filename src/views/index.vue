@@ -2,8 +2,12 @@
   <div class="flex">
     <div class="h-screen w-content-screen">
       <div class="h-top-tab w-full shadow-md flex items-center px-20px">
-        <NButton type="primary" @click="save" class="mr-10px">保存</NButton>
-        <NButton type="primary" @click="load" class="mr-10px">加载</NButton>
+        <n-menu
+          mode="horizontal"
+          :options="menuOpt"
+          :value="null"
+          :render-label="renderLabel"
+        />
       </div>
       <editor-view></editor-view>
     </div>
@@ -14,17 +18,19 @@
 <script setup>
 import SideBar from '../side-bar/side-bar.vue'
 import editorView from '../editor-view/editor-view.vue'
-import { NButton, useMessage } from 'naive-ui'
-import { savePage, loadPage } from '../lib/utils/save'
+import { useMessage, NMenu } from 'naive-ui'
+import menuOpt from './menu'
+import { h } from 'vue'
+
+function renderLabel(opt) {
+  const props = { class: 'menu-item' }
+  if (Object.hasOwnProperty.call(opt, 'callBack')) {
+    props.onClick = opt.callBack
+  }
+  return h('div', props, opt.label)
+}
 
 window.$message = useMessage()
-
-function save() {
-  savePage()
-}
-function load() {
-  loadPage()
-}
 </script>
 
 <style>
@@ -35,9 +41,12 @@ function load() {
   width: calc(100vw - 320px);
 }
 .h-top-tab {
-  height: 50px;
+  height: 40px;
 }
 .h-editor-view {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 40px);
+}
+.menu-item {
+  font-size: 12px;
 }
 </style>

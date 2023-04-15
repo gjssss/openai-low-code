@@ -2,11 +2,11 @@ import { defineStore } from 'pinia'
 
 export const useComponentStore = defineStore('component', {
   state: () => ({
-    compSet: {},
-    count: 0,
-    select: 0,
+    compSet: {}, // 组件集
+    count: 0, // 组件数量
+    select: 0, // 当前选中组件id
     _updateFlag: false, // 用于控制属性表单更新
-    __root__: null,
+    __root__: null, // 页面根组件
   }),
   actions: {
     /**
@@ -37,10 +37,15 @@ export const useComponentStore = defineStore('component', {
       }
       return this.compSet[_id]
     },
-    // 属性表单重新绑定
+    /**
+     * 属性表单重新绑定
+     */
     updateBindProp() {
       this._updateFlag = !this._updateFlag
     },
+    /**
+     * 属性表单延迟后重新绑定
+     */
     updateThenBind() {
       // TODO: 修复改变组件属性后组件样式绑定问题
       // 对于改变组件属性后，其样式不会立马改变（nextTick也不行），目前就想到这个方法
@@ -79,18 +84,27 @@ export const useComponentStore = defineStore('component', {
         this.currentComponent.props[propName] = value
       }
     },
-
+    /**
+     * 删除一个组件
+     * @param {Base} component 要删除的组件
+     */
     delComponent(component) {
       const _father = component.father
       const index = _father.children.indexOf(component)
       _father.children.splice(index, 1)
     },
+    /**
+     * 删除当前选中组件
+     */
     delCurrentComponent() {
       this.delComponent(this.currentComponent)
       this.select = 0
     },
   },
   getters: {
+    /**
+     * 获取当前选中组件实例
+     */
     currentComponent: (state) => {
       if (state.select < 0 || state.compSet[state.select].name === '__root__') {
         return null
@@ -98,16 +112,28 @@ export const useComponentStore = defineStore('component', {
         return state.compSet[state.select]
       }
     },
+    /**
+     * 获取当前选中组件计算样式
+     */
     styles: (state) => {
       const id = state.compSet[state.select].id
       return window.getComputedStyle(document.getElementById('com-' + id))
     },
+    /**
+     * 获取编辑器宽度
+     */
     editorWidth: () => {
       return document.getElementById('editor').clientWidth
     },
+    /**
+     * 获取编辑器高度
+     */
     editorHeight: () => {
       return document.getElementById('editor').clientHeight
     },
+    /**
+     * 获取页面根组件
+     */
     root: (state) => {
       return state.compSet[state.__root__]
     },
