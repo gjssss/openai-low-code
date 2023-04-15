@@ -13,6 +13,7 @@
       <div size="12">
         <span class="iconfont text-18px icon-width" />
         <n-input-number
+          :min="0"
           :value="widthPx"
           @update:value="
             (value) => {
@@ -25,6 +26,7 @@
       <div size="12">
         <span class="iconfont text-18px icon-height" />
         <n-input-number
+          :min="0"
           :value="heightPx"
           @update:value="
             (value) => {
@@ -38,11 +40,19 @@
     <template #detail>
       <div size="12">
         <span class="iconfont text-18px icon-width" />
-        <n-input-number :value="widthPercent" @update:value="updateWidthPc" />
+        <n-input-number
+          :value="widthPercent"
+          @update:value="updateWidthPc"
+          :min="0"
+        />
       </div>
       <div size="12">
         <span class="iconfont text-18px icon-height" />
-        <n-input-number :value="heightPercent" @update:value="updateHeightPc" />
+        <n-input-number
+          :value="heightPercent"
+          @update:value="updateHeightPc"
+          :min="0"
+        />
       </div>
     </template>
     <template #more>

@@ -12,6 +12,7 @@
           :class="props.iconUp ? props.iconUp : 'icon-up-circle'"
         />
         <n-input-number
+          :min="0"
           :value="parseStylePixel('up')"
           @update-value="(value) => formatStyleOutput(value, 'up')"
         ></n-input-number>
@@ -22,6 +23,7 @@
           :class="props.iconRight ? props.iconRight : 'icon-right-circle'"
         />
         <n-input-number
+          :min="0"
           :value="parseStylePixel('right')"
           @update-value="(value) => formatStyleOutput(value, 'right')"
         ></n-input-number>
@@ -32,6 +34,7 @@
           :class="props.iconLeft ? props.iconLeft : 'icon-left-circle'"
         />
         <n-input-number
+          :min="0"
           :value="parseStylePixel('left')"
           @update-value="(value) => formatStyleOutput(value, 'left')"
         ></n-input-number>
@@ -42,6 +45,7 @@
           :class="props.iconDown ? props.iconDown : 'icon-down-circle'"
         />
         <n-input-number
+          :min="0"
           :value="parseStylePixel('down')"
           @update-value="(value) => formatStyleOutput(value, 'down')"
         ></n-input-number>
@@ -51,6 +55,7 @@
       <div size="24">
         <span class="iconfont text-18px" :class="props.icon" />
         <n-input-number
+          :min="0"
           :value="parseStylePixel()"
           @update-value="(value) => formatStyleOutput(value)"
         ></n-input-number>
