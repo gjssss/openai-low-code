@@ -103,7 +103,7 @@ import { useComponentStore } from '@/stores/component'
 import { rgbaToHex } from '@/utils/color.js'
 
 const component = useComponentStore()
-const { _updateFlag, editorWidth, editorHeight } = storeToRefs(component)
+const { _updateFlag, fatherWidth, fatherHeight } = storeToRefs(component)
 
 watch(_updateFlag, bind)
 
@@ -115,11 +115,11 @@ const boxSizing = ref(false)
 const overflow = ref(false)
 
 const updateWidthPc = (value) => {
-  widthPx.value = Math.round((value * editorWidth.value) / 100)
+  widthPx.value = Math.round((value * fatherWidth.value) / 100)
   component.setProp('width', widthPx.value + 'px', true)
 }
 const updateHeightPc = (value) => {
-  heightPx.value = Math.round((value * editorHeight.value) / 100)
+  heightPx.value = Math.round((value * fatherHeight.value) / 100)
   component.setProp('height', heightPx.value + 'px', true)
 }
 
@@ -134,10 +134,10 @@ const updateOverflow = (value) => {
 }
 
 const widthPercent = computed(() => {
-  return Math.round((widthPx.value / editorWidth.value) * 100)
+  return Math.round((widthPx.value / fatherWidth.value) * 100)
 })
 const heightPercent = computed(() => {
-  return Math.round((heightPx.value / editorHeight.value) * 100)
+  return Math.round((heightPx.value / fatherHeight.value) * 100)
 })
 
 function bind() {

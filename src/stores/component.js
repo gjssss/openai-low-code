@@ -1,3 +1,5 @@
+import { Base } from '@/lib/class/base'
+import { delComponent } from '@/lib/utils/dom'
 import { defineStore } from 'pinia'
 
 export const useComponentStore = defineStore('component', {
@@ -28,6 +30,9 @@ export const useComponentStore = defineStore('component', {
      * @returns {Base} 组件类实例
      */
     componentFromId(id) {
+      if (id instanceof Base) {
+        return id
+      }
       let _id
       if (Number.isNaN(parseInt(id))) {
         // 格式为`com-0`这种
@@ -85,19 +90,10 @@ export const useComponentStore = defineStore('component', {
       }
     },
     /**
-     * 删除一个组件
-     * @param {Base} component 要删除的组件
-     */
-    delComponent(component) {
-      const _father = component.father
-      const index = _father.children.indexOf(component)
-      _father.children.splice(index, 1)
-    },
-    /**
      * 删除当前选中组件
      */
     delCurrentComponent() {
-      this.delComponent(this.currentComponent)
+      delComponent(this.currentComponent)
       this.select = -1
     },
     /**
@@ -107,6 +103,20 @@ export const useComponentStore = defineStore('component', {
       this.compSet.splice(1)
       this.count = 1
       this.select = -1
+    },
+    /**
+     * 获取组件计算样式
+     */
+    getStyles(component) {
+      let id
+      if (component instanceof Base) {
+        id = component.id
+      } else if (typeof component === 'string') {
+        id = component.split('-')[1]
+      } else if (typeof component === 'number') {
+        id = component
+      }
+      return window.getComputedStyle(document.getElementById('com-' + id))
     },
   },
   getters: {
@@ -138,6 +148,30 @@ export const useComponentStore = defineStore('component', {
      */
     editorHeight: () => {
       return document.getElementById('editor').clientHeight
+    },
+    /**
+     * 获取编辑器宽度
+     */
+    fatherWidth: (state) => {
+      if (state.select < 0 || state.compSet[state.select].name === '__root__') {
+        return 0
+      } else {
+        return document.getElementById(
+          'com-' + state.compSet[state.select].father.id
+        ).clientWidth
+      }
+    },
+    /**
+     * 获取编辑器高度
+     */
+    fatherHeight: (state) => {
+      if (state.select < 0 || state.compSet[state.select].name === '__root__') {
+        return 0
+      } else {
+        return document.getElementById(
+          'com-' + state.compSet[state.select].father.id
+        ).clientHeight
+      }
     },
     /**
      * 获取页面根组件

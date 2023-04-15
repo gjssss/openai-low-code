@@ -95,7 +95,6 @@ const { currentComponent } = storeToRefs(component)
 
 function delHandle() {
   component.delCurrentComponent()
-  console.log(component.root.children)
 }
 </script>
 
