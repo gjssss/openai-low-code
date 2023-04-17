@@ -25,28 +25,9 @@ import { useComponentStore } from '../stores/component'
 const component = useComponentStore()
 const menuOpt = computed(() => [
   {
-    label: '页面选项',
-    key: 'page',
-    children: [
-      {
-        label: '保存页面',
-        key: 'savePage',
-        callBack: savePage,
-      },
-      {
-        label: '加载页面',
-        key: 'loadPage',
-        callBack: () => {
-          component.clear()
-          loadPage()
-        },
-      },
-    ],
-  },
-  {
     label: component.currentComponent
-      ? '当前组件：' + component.currentComponent.name
-      : '没有选中组件',
+      ? '当前组件：' + component.currentComponent.name + '👈'
+      : '没有选中组件🤷‍♂️',
     key: 'component',
     children: component.compSet
       .filter((i) => i.name !== '__root__')
@@ -58,6 +39,35 @@ const menuOpt = computed(() => [
           component.updateBindProp()
         },
       })),
+  },
+  {
+    label: '页面选项📄',
+    key: 'page',
+    children: [
+      {
+        label: '保存页面💾',
+        key: 'savePage',
+        callBack: savePage,
+      },
+      {
+        label: '加载页面🖊',
+        key: 'loadPage',
+        callBack: () => {
+          component.clear()
+          loadPage()
+        },
+      },
+    ],
+  },
+  {
+    label: '帮助🎓',
+    key: 'help',
+    children: [
+      {
+        label: '功能说明🤓',
+        key: 'helpComponent',
+      },
+    ],
   },
 ])
 

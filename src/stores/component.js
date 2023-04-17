@@ -94,6 +94,7 @@ export const useComponentStore = defineStore('component', {
      */
     delCurrentComponent() {
       delComponent(this.currentComponent)
+      this.compSet.splice(this.select, 1)
       this.select = -1
     },
     /**
