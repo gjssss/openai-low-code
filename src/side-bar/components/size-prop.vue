@@ -15,12 +15,7 @@
         <n-input-number
           :min="0"
           :value="widthPx"
-          @update:value="
-            (value) => {
-              widthPx = value
-              component.setProp('width', value + 'px', true)
-            }
-          "
+          @update:value="updateWidthPx"
         />
       </div>
       <div size="12">
@@ -28,12 +23,7 @@
         <n-input-number
           :min="0"
           :value="heightPx"
-          @update:value="
-            (value) => {
-              heightPx = value
-              component.setProp('height', value + 'px', true)
-            }
-          "
+          @update:value="updateHeightPx"
         />
       </div>
     </template>
@@ -97,13 +87,14 @@
 <script setup>
 import BaseProps from '../widgets/base-props.vue'
 import { NInputNumber, NColorPicker, NSwitch, NTooltip } from 'naive-ui'
-import { computed, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useComponentStore } from '@/stores/component'
 import { rgbaToHex } from '@/utils/color.js'
 
 const component = useComponentStore()
-const { _updateFlag, fatherWidth, fatherHeight } = storeToRefs(component)
+const { _updateFlag, fatherWidth, fatherHeight, currentComponent } =
+  storeToRefs(component)
 
 watch(_updateFlag, bind)
 
@@ -114,21 +105,35 @@ const textColor = ref('')
 const boxSizing = ref(false)
 const overflow = ref(false)
 
-const updateWidthPc = (value) => {
+function updateWidthPx(value) {
+  widthPx.value = value
+  currentComponent.value.settings['width-percent'] = widthPercent.value
+  component.setProp('width', value + 'px', true)
+}
+
+function updateHeightPx(value) {
+  heightPx.value = value
+  currentComponent.value.settings['height-percent'] = heightPercent.value
+  component.setProp('height', value + 'px', true)
+}
+
+function updateWidthPc(value) {
   widthPx.value = Math.round((value * fatherWidth.value) / 100)
+  currentComponent.value.settings['width-percent'] = value
   component.setProp('width', widthPx.value + 'px', true)
 }
-const updateHeightPc = (value) => {
+function updateHeightPc(value) {
   heightPx.value = Math.round((value * fatherHeight.value) / 100)
+  currentComponent.value.settings['height-percent'] = value
   component.setProp('height', heightPx.value + 'px', true)
 }
 
-const updateBoxSizing = (value) => {
+function updateBoxSizing(value) {
   component.setProp('box-sizing', value ? 'border-box' : 'content-box', true)
   boxSizing.value = value
 }
 
-const updateOverflow = (value) => {
+function updateOverflow(value) {
   component.setProp('overflow', value ? 'hidden' : 'visible', true)
   overflow.value = value
 }

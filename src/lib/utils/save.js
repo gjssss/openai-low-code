@@ -38,6 +38,11 @@ function parsePage(root, children) {
     const type = child.__type__
     delete child.__type__
 
+    // 获取setting
+    const settings = child.settings
+    delete child.settings
+
+    // 设置为无默认样式
     child.plant = true
     let instance
     // 如果有children，则是容器类型
@@ -45,10 +50,15 @@ function parsePage(root, children) {
       // 暂存child
       const children = child.children
       delete child.children
+      // 实例化容器组件
       instance = Reflect.construct(classes[type], [child])
+      // 递归的将子组件解析到容器组件中
       parsePage(instance, children)
     } else {
       instance = Reflect.construct(classes[type], [child])
+    }
+    for (let i in settings) {
+      instance.settings[i] = settings[i]
     }
     root.children.push(instance)
   })

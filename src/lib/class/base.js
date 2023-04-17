@@ -1,4 +1,4 @@
-import { reactive, h, ref, toRaw } from 'vue'
+import { reactive, h, ref, toRaw, watch } from 'vue'
 import {
   registerComponent,
   selectComponent,
@@ -64,6 +64,35 @@ export class Base {
     this.__type__ = 'Base'
     this.isRender = false
 
+    watch(
+      () => this.settings['size-more'],
+      (newVal) => {
+        if (newVal) {
+          this.sizeWatchHeightHandel = watch(
+            () => this.father.props.style.height,
+            (_new) => {
+              this.props.style.height =
+                Math.floor(
+                  (this.settings['height-percent'] * parseInt(_new)) / 100
+                ) + 'px'
+            }
+          )
+          this.sizeWatchWidthHandel = watch(
+            () => this.father.props.style.width,
+            (_new) => {
+              this.props.style.width =
+                Math.floor(
+                  (this.settings['width-percent'] * parseInt(_new)) / 100
+                ) + 'px'
+            }
+          )
+        } else {
+          this.sizeWatchHeightHandel ? this.sizeWatchHeightHandel() : null
+          this.sizeWatchWidthHandel ? this.sizeWatchWidthHandel() : null
+        }
+      }
+    )
+
     /* 挂载注册函数 */
     this.registerPropGroup = registerPropGroup.bind(this)
     this.registerSelect = registerSelect.bind(this)
@@ -102,6 +131,7 @@ export class Base {
     props.name = cloneDeep(toRaw(this.name))
     props.wrapper = cloneDeep(toRaw(this._wrapper) ? this._wrapper : {})
     props.content = cloneDeep(toRaw(this.content))
+    props.settings = cloneDeep(toRaw(this.settings))
     props.__type__ = cloneDeep(toRaw(this.__type__))
     delete props.id
     return props
