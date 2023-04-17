@@ -60,6 +60,7 @@ function parsePage(root, children) {
     for (let i in settings) {
       instance.settings[i] = settings[i]
     }
+    instance.father = root
     root.children.push(instance)
   })
 }
