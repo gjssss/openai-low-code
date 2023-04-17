@@ -1,41 +1,35 @@
-# low code
+# 低代码平台
+使用Vue3和Sortable.js实现的拖拽组件低代码平台
+## 安装
+* clone仓库
+  ```bash
+  git clone https://github.com/gjssss/openai-low-code
+  ```
+* 安装依赖
+  ```bash
+  pnpm i
+  ```
+  > 注意：如果没有安装pnpm可以使用`npm install -g pnpm`安装
+* 运行
+  ```bash
+  pnpm dev
+  ```
+  运行后，在浏览器中输入`http://localhost:8081`访问
 
-This template should help get you started developing with Vue 3 in Vite.
+## 🎇Feature
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+- [x] 拖拽组件
+- [x] 继承式组件
+- [x] 基础属性表单
+- [x] 插件式可扩展组件属性表单
+- [x] 保存和加载页面
+- [x] 组件菜单
+- [x] 按钮组件
+- [x] 文字组件
+- [x] 容器组件
+- [ ] 集合式组件
+- [ ] 复制粘贴组件
+- [ ] 多页面系统
+- [ ] 事件系统
+- [ ] 动画系统
+- [ ] 更多组件···
