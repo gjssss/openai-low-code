@@ -116,10 +116,14 @@ export class Base {
   }
 
   static get preview() {
-    return h('div', {}, 'Base')
+    return h('div', { class: 'select-wrapper' }, 'Base')
   }
 
   register() {}
+
+  bindStyle() {
+    return window.getComputedStyle(document.getElementById('com-' + this.id))
+  }
 
   clearStyle() {
     this.props.style = {}

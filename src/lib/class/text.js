@@ -1,3 +1,4 @@
+import { rgbaToHex } from '@/utils/color'
 import { h } from 'vue'
 import { Base } from './base'
 
@@ -17,7 +18,7 @@ export class Text extends Base {
   }
 
   static get preview() {
-    return h('div', {}, '文本')
+    return h('div', { class: 'select-wrapper' }, '文本')
   }
 
   register() {
@@ -67,5 +68,12 @@ export class Text extends Base {
         )
       ),
     ]
+  }
+
+  bindStyle() {
+    const styles = super.bindStyle()
+    this.props.style['font-size'] = styles['font-size']
+    this.props.style['font-weight'] = styles['font-weight']
+    this.props.style['color'] = rgbaToHex(styles['color'])
   }
 }

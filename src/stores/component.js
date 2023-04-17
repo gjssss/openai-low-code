@@ -47,6 +47,7 @@ export const useComponentStore = defineStore('component', {
      */
     updateBindProp() {
       this._updateFlag = !this._updateFlag
+      this.currentComponent.bindStyle()
     },
     /**
      * 属性表单延迟后重新绑定

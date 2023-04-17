@@ -73,8 +73,8 @@ export class Container extends Base {
           'border-color': '#000',
           'border-width': '1px',
           padding: '30px',
-          display: 'inline-block',
         },
+        class: 'select-wrapper',
       },
       ''
     )

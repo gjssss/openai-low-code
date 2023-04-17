@@ -96,7 +96,7 @@ export function registerSelect(formOption, selectOption) {
 }
 
 /**
- * 注册选择属性
+ * 注册开关属性
  * @param {Object} formOption 表单选项
  * @param {string} formOption.path 属性路径
  * @param {string?} formOption.icon 属性icon或名称

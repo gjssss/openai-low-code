@@ -1,20 +1,47 @@
 <template>
   <div v-if="currentComponent">
     <div class="p-10px flex items-center">
-      <div class="text-18px fw-600 w-a">名称：</div>
+      <div><div class="text-18px fw-600 w-60px">名称：</div></div>
       <div>
-        <n-input
-          type="text"
-          size="small"
-          placeholder="名称"
-          v-model:value.trim="currentComponent.name"
-          :round="true"
-        />
+        <div>
+          <n-input
+            type="text"
+            size="small"
+            placeholder="名称"
+            v-model:value.trim="currentComponent.name"
+            :round="true"
+          />
+        </div>
       </div>
-      <div
-        class="iconfont icon-delete text-24px w-20px h-20px flex-center rounded-50% px-5px cursor-pointer hover:text-red trans-all"
-        @click="delHandle"
-      />
+      <div class="flex">
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <div
+              class="iconfont icon-fuzhi icon-control hover:text-green"
+              @click="copy"
+            />
+          </template>
+          复制
+        </n-tooltip>
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <div
+              class="iconfont icon-niantie icon-control hover:text-blue"
+              @click="paste"
+            />
+          </template>
+          粘贴
+        </n-tooltip>
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <div
+              class="iconfont icon-delete icon-control hover:text-red"
+              @click="delHandle"
+            />
+          </template>
+          删除
+        </n-tooltip>
+      </div>
     </div>
     <n-collapse
       display-directive="show"
@@ -88,13 +115,33 @@ import { useComponentStore } from '@/stores/component'
 import fourProps from './widgets/four-props.vue'
 import borderProp from './components/border-prop.vue'
 import sizeProp from './components/size-prop.vue'
-import { NCollapse, NCollapseItem, NInput } from 'naive-ui'
+import { NCollapse, NCollapseItem, NInput, NTooltip } from 'naive-ui'
+import { unref } from 'vue'
+import { useClipboard } from '@/stores/clipboard'
+import { merge } from 'lodash-es'
 
 const component = useComponentStore()
+const clipboard = useClipboard()
 const { currentComponent } = storeToRefs(component)
 
 function delHandle() {
   component.delCurrentComponent()
+}
+function copy() {
+  const props = unref(currentComponent.value.props)
+  clipboard.copy(currentComponent.value.__type__, JSON.stringify(props))
+  window.$message.success('复制成功')
+}
+function paste() {
+  let props
+  try {
+    props = JSON.parse(clipboard.paste(currentComponent.value.__type__))
+  } catch (error) {
+    window.$message.error('粘贴失败，您可能还没有复制组件呢')
+    return
+  }
+  merge(currentComponent.value.props, props)
+  window.$message.success('粘贴成功')
 }
 </script>
 
@@ -111,5 +158,17 @@ function delHandle() {
   .n-collapse-item__content-wrapper
   .n-collapse-item__content-inner {
   padding: 0;
+}
+.icon-control {
+  font-size: 24px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0 5px;
+  cursor: pointer;
+  transition: all 0.225s ease-in-out;
 }
 </style>

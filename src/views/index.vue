@@ -23,6 +23,7 @@ import { h, computed } from 'vue'
 import { savePage, loadPage } from '../lib/utils/save'
 import { useComponentStore } from '../stores/component'
 import { showComponentHelp } from '../utils/help'
+import { selectComponent } from '@/lib/utils/register'
 
 const component = useComponentStore()
 const menuOpt = computed(() => [
@@ -37,8 +38,7 @@ const menuOpt = computed(() => [
         label: comp.name,
         key: comp.id,
         callBack: () => {
-          component.select = comp.id
-          component.updateBindProp()
+          selectComponent(comp.id)
         },
       })),
   },
