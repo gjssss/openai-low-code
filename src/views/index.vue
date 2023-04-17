@@ -18,10 +18,12 @@
 <script setup>
 import SideBar from '../side-bar/side-bar.vue'
 import editorView from '../editor-view/editor-view.vue'
-import { useMessage, NMenu } from 'naive-ui'
+import { useMessage, useNotification, NMenu } from 'naive-ui'
 import { h, computed } from 'vue'
 import { savePage, loadPage } from '../lib/utils/save'
 import { useComponentStore } from '../stores/component'
+import { showComponentHelp } from '../utils/help'
+
 const component = useComponentStore()
 const menuOpt = computed(() => [
   {
@@ -64,8 +66,9 @@ const menuOpt = computed(() => [
     key: 'help',
     children: [
       {
-        label: '功能说明🤓',
+        label: '组件帮助🤓',
         key: 'helpComponent',
+        callBack: showComponentHelp,
       },
     ],
   },
@@ -80,6 +83,7 @@ function renderLabel(opt) {
 }
 
 window.$message = useMessage()
+window.$notification = useNotification()
 </script>
 
 <style>

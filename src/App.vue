@@ -2,7 +2,7 @@
 import { RouterView } from 'vue-router'
 import { register } from '@/lib/utils/register'
 import { saveRegister } from '@/lib/utils/save'
-import { NMessageProvider } from 'naive-ui'
+import { NMessageProvider, NNotificationProvider } from 'naive-ui'
 if (!localStorage.getItem('page-1')) {
   localStorage.setItem(
     'page-1',
@@ -15,7 +15,9 @@ saveRegister()
 
 <template>
   <NMessageProvider>
-    <RouterView />
+    <n-notification-provider :max="1">
+      <RouterView />
+    </n-notification-provider>
   </NMessageProvider>
 </template>
 
