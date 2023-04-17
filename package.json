@@ -1,7 +1,7 @@
 {
   "name": "low-code",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "vite --port 8081",
     "build": "vite build",
