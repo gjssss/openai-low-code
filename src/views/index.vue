@@ -24,23 +24,42 @@ import { savePage, loadPage } from '../lib/utils/save'
 import { useComponentStore } from '../stores/component'
 import { showComponentHelp } from '../utils/help'
 import { selectComponent } from '@/lib/utils/register'
+import { Container } from '@/lib'
 
 const component = useComponentStore()
+window.component = component
+
+function _map(child) {
+  const prop = {
+    label: child.name,
+    key: child.id,
+    callBack: () => {
+      selectComponent(child.id)
+    },
+  }
+  if (component.currentComponent === child) {
+    prop.label += '👈'
+    prop.flag = true
+  } else {
+    prop.flag = false
+  }
+  if (child instanceof Container) {
+    prop.children = child.children.map(_map)
+    if (prop.children.reduce((sum, val) => sum | val.flag, false)) {
+      prop.label += '👉'
+      prop.flag = true
+    }
+  }
+  return prop
+}
+
 const menuOpt = computed(() => [
   {
     label: component.currentComponent
       ? '当前组件：' + component.currentComponent.name + '👈'
       : '没有选中组件🤷‍♂️',
     key: 'component',
-    children: component.compSet
-      .filter((i) => i.name !== '__root__')
-      .map((comp) => ({
-        label: comp.name,
-        key: comp.id,
-        callBack: () => {
-          selectComponent(comp.id)
-        },
-      })),
+    children: component.root ? component.root.children.map(_map) : [],
   },
   {
     label: '页面选项📄',
