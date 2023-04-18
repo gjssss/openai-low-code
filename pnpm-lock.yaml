@@ -25,9 +25,6 @@ dependencies:
   vue-router:
     specifier: ^4.1.6
     version: registry.npmmirror.com/vue-router@4.1.6(vue@3.2.47)
-  vuedraggable:
-    specifier: ^4.1.0
-    version: registry.npmmirror.com/vuedraggable@4.1.0(vue@3.2.47)
 
 devDependencies:
   '@iconify-json/carbon':
@@ -3568,12 +3565,6 @@ packages:
       totalist: registry.npmmirror.com/totalist@3.0.0
     dev: true
 
-  registry.npmmirror.com/sortablejs@1.14.0:
-    resolution: {integrity: sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/sortablejs/-/sortablejs-1.14.0.tgz}
-    name: sortablejs
-    version: 1.14.0
-    dev: false
-
   registry.npmmirror.com/sortablejs@1.15.0:
     resolution: {integrity: sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/sortablejs/-/sortablejs-1.15.0.tgz}
     name: sortablejs
@@ -4062,18 +4053,6 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom@3.2.47
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer@3.2.47(vue@3.2.47)
       '@vue/shared': registry.npmmirror.com/@vue/shared@3.2.47
-
-  registry.npmmirror.com/vuedraggable@4.1.0(vue@3.2.47):
-    resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vuedraggable/-/vuedraggable-4.1.0.tgz}
-    id: registry.npmmirror.com/vuedraggable/4.1.0
-    name: vuedraggable
-    version: 4.1.0
-    peerDependencies:
-      vue: ^3.0.1
-    dependencies:
-      sortablejs: registry.npmmirror.com/sortablejs@1.14.0
-      vue: registry.npmmirror.com/vue@3.2.47
-    dev: false
 
   registry.npmmirror.com/vueuc@0.4.51(vue@3.2.47):
     resolution: {integrity: sha512-pLiMChM4f+W8czlIClGvGBYo656lc2Y0/mXFSCydcSmnCR1izlKPGMgiYBGjbY9FDkFG8a2HEVz7t0DNzBWbDw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vueuc/-/vueuc-0.4.51.tgz}
