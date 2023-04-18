@@ -1,7 +1,7 @@
 <template>
   <div id="component" class="p-20px">
-    <div class="flex justify-between">
-      <div class="w-80px h-100px">
+    <div class="flex justify-between flex-wrap">
+      <div class="w-80px h-100px mb-10px">
         <div
           class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
           v-drag="dragOption"
@@ -15,7 +15,7 @@
           </n-tooltip>
         </div>
       </div>
-      <div class="w-80px h-100px">
+      <div class="w-80px h-100px mb-10px">
         <div
           class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
           v-drag="dragOption"
@@ -29,7 +29,7 @@
           </n-tooltip>
         </div>
       </div>
-      <div class="w-80px h-100px">
+      <div class="w-80px h-100px mb-10px">
         <div
           class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
           v-drag="dragOption"
@@ -40,6 +40,20 @@
           <n-tooltip trigger="hover">
             <template #trigger> 文本 </template>
             来写一段文本吧
+          </n-tooltip>
+        </div>
+      </div>
+      <div class="w-80px h-100px mb-10px">
+        <div
+          class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
+          v-drag="dragOption"
+        >
+          <pic name="Picture" />
+        </div>
+        <div class="w-full h-20px flex-center text-14px">
+          <n-tooltip trigger="hover">
+            <template #trigger> 图片 </template>
+            展示一下喜欢的图片
           </n-tooltip>
         </div>
       </div>
@@ -54,6 +68,7 @@ import * as Classes from '../lib'
 const btn = Classes.Button.preview
 const container = Classes.Container.preview
 const txt = Classes.Text.preview
+const pic = Classes.Picture.preview
 
 const component = useComponentStore()
 
