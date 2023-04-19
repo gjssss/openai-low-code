@@ -42,6 +42,7 @@
       <prop-layout><slot name="default"></slot></prop-layout>
     </template>
     <prop-layout><slot name="more"></slot></prop-layout>
+    <slot name="custom"></slot>
   </n-card>
 </template>
 

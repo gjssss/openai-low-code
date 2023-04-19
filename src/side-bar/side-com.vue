@@ -57,6 +57,20 @@
           </n-tooltip>
         </div>
       </div>
+      <div class="w-80px h-100px mb-10px">
+        <div
+          class="w-80px h-80px rounded-10px b-$border-color b-2px border-dotted hover:shadow-lg trans-all flex-center"
+          v-drag="dragOption"
+        >
+          <tbl name="Table" />
+        </div>
+        <div class="w-full h-20px flex-center text-14px">
+          <n-tooltip trigger="hover">
+            <template #trigger> 表格 </template>
+            显示一个表格
+          </n-tooltip>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -69,6 +83,7 @@ const btn = Classes.Button.preview
 const container = Classes.Container.preview
 const txt = Classes.Text.preview
 const pic = Classes.Picture.preview
+const tbl = Classes.Table.preview
 
 const component = useComponentStore()
 

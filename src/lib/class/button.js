@@ -23,8 +23,7 @@ export class Button extends Text {
   register() {
     super.register()
     this.extraProps['按钮属性'] = [
-      this.registerPropGroup(
-        { name: '按钮' },
+      this.registerPropGroup({ name: '按钮' }, [
         this.registerSelect(
           { path: 'props.type', icon: '类型', size: 12, isClear: true },
           {
@@ -47,8 +46,8 @@ export class Button extends Text {
             on: true,
             off: false,
           }
-        )
-      ),
+        ),
+      ]),
     ]
   }
 }

@@ -29,8 +29,7 @@ export class Picture extends Base {
   register() {
     super.register()
     this.extraProps['图片属性'] = [
-      this.registerPropGroup(
-        { name: '图片' },
+      this.registerPropGroup({ name: '图片' }, [
         this.registerInput(
           { path: 'props.alt', icon: '说明', size: 24 },
           {
@@ -66,8 +65,8 @@ export class Picture extends Base {
             on: true,
             off: false,
           }
-        )
-      ),
+        ),
+      ]),
     ]
   }
 }

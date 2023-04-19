@@ -24,8 +24,7 @@ export class Text extends Base {
   register() {
     super.register()
     this.extraProps['文本属性'] = [
-      this.registerPropGroup(
-        { name: '文本' },
+      this.registerPropGroup({ name: '文本' }, [
         this.registerInput(
           { path: 'content.value', icon: '内容', size: 24 },
           {
@@ -65,8 +64,8 @@ export class Text extends Base {
           {
             default: '#000000FF',
           }
-        )
-      ),
+        ),
+      ]),
     ]
   }
 

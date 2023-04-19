@@ -86,82 +86,84 @@ export class Container extends Base {
         {
           name: 'Flex布局',
         },
-        this.registerSwitch(
-          {
-            path: 'props.style.display',
-            icon: 'Flex',
-            size: 12,
-          },
-          {
-            default: 'block',
-            on: 'flex',
-            off: 'block',
-          }
-        ),
-        this.registerSelect(
-          {
-            path: 'props.style.flex-direction',
-            icon: '方向',
-            size: 12,
-          },
-          {
-            default: 'row',
-            options: ['row', 'column', 'column-reverse', 'row-reverse'],
-            names: ['横向', '纵向', '纵向反向', '横向反向'],
-          }
-        ),
-        this.registerSelect(
-          {
-            path: 'props.style.justify-content',
-            icon: '主轴',
-            size: 12,
-          },
-          {
-            default: 'start',
-            options: [
-              'start',
-              'end',
-              'center',
-              'space-between',
-              'space-around',
-              'space-evenly',
-            ],
-            names: [
-              '起始对齐',
-              '末尾对齐',
-              '中心对齐',
-              '均匀分配',
-              'around',
-              'evenly',
-            ],
-          }
-        ),
-        this.registerSelect(
-          {
-            path: 'props.style.align-items',
-            icon: '副轴',
-            size: 12,
-          },
-          {
-            default: 'start',
-            options: [
-              'start',
-              'end',
-              'center',
-              'space-between',
-              'space-around',
-              'space-evenly',
-            ],
-            names: [
-              '起始对齐',
-              '末尾对齐',
-              '中心对齐',
-              '均匀分配',
-              'around',
-              'evenly',
-            ],
-          }
-        )
+        [
+          this.registerSwitch(
+            {
+              path: 'props.style.display',
+              icon: 'Flex',
+              size: 12,
+            },
+            {
+              default: 'block',
+              on: 'flex',
+              off: 'block',
+            }
+          ),
+          this.registerSelect(
+            {
+              path: 'props.style.flex-direction',
+              icon: '方向',
+              size: 12,
+            },
+            {
+              default: 'row',
+              options: ['row', 'column', 'column-reverse', 'row-reverse'],
+              names: ['横向', '纵向', '纵向反向', '横向反向'],
+            }
+          ),
+          this.registerSelect(
+            {
+              path: 'props.style.justify-content',
+              icon: '主轴',
+              size: 12,
+            },
+            {
+              default: 'start',
+              options: [
+                'start',
+                'end',
+                'center',
+                'space-between',
+                'space-around',
+                'space-evenly',
+              ],
+              names: [
+                '起始对齐',
+                '末尾对齐',
+                '中心对齐',
+                '均匀分配',
+                'around',
+                'evenly',
+              ],
+            }
+          ),
+          this.registerSelect(
+            {
+              path: 'props.style.align-items',
+              icon: '副轴',
+              size: 12,
+            },
+            {
+              default: 'start',
+              options: [
+                'start',
+                'end',
+                'center',
+                'space-between',
+                'space-around',
+                'space-evenly',
+              ],
+              names: [
+                '起始对齐',
+                '末尾对齐',
+                '中心对齐',
+                '均匀分配',
+                'around',
+                'evenly',
+              ],
+            }
+          ),
+        ]
       ),
     ]
   }

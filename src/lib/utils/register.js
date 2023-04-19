@@ -27,15 +27,20 @@ export function selectComponent(id) {
  * @param {string} formOption.name 属性名
  * @param {string?} formOption.icon 属性icon或名称
  * @param {string?} formOption.size 属性表单所占大小
- * @param {...()=>VNode<any>} propFroms
+ * @param {()=>VNode<any>[]} propFroms 属性表单渲染函数
+ * @param {()=>VNode<any>[]} custom 自定义渲染函数
  */
-export function registerPropGroup(formOption, ...propFroms) {
+export function registerPropGroup(formOption, propFroms = [], custom = []) {
   return () =>
     h(
       baseProps,
-      { title: formOption.name, icon: formOption.icon },
+      {
+        title: formOption.name,
+        icon: formOption.icon,
+      },
       {
         default: () => propFroms.map((item) => item()),
+        custom: () => custom.map((item) => item()),
       }
     )
 }
