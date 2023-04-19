@@ -48,17 +48,6 @@
 import { NButton, NInput } from 'naive-ui'
 defineProps(['value'])
 const emits = defineEmits(['update', 'addCol', 'addRow', 'rmRow', 'rmCol'])
-
-// value: [
-//   {
-//     label: '你好',
-//     cols: ['世界'],
-//   },
-//   {
-//     label: '你好',
-//     cols: ['世界'],
-//   },
-// ]
 </script>
 
 <style></style>
