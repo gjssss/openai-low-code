@@ -29,3 +29,5 @@ coverage
 
 # temp dir
 temp/*
+
+.env
