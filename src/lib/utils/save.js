@@ -1,35 +1,60 @@
-import { useComponentStore } from '@/stores/component'
 import * as classes from '@/lib'
-
-let component
-
-// 安装store
-export function saveRegister() {
-  component = useComponentStore()
-}
+import { usePageStore } from '@/stores/pages'
 
 export function savePage() {
-  const page = JSON.stringify(component.root.jsonify().children)
-  // console.log(page)
-  localStorage.setItem('page-1', page)
+  // 命名规则：page-{key}-{label}
+  const page = usePageStore()
+  Object.keys(page.pageSet).forEach((key) => {
+    const elems = JSON.stringify(page.pageSet[key].root.jsonify().children)
+    localStorage.setItem(`page-${key}-${page.pageSet[key].label}`, elems)
+  })
+  localStorage.setItem('select-page', page._page)
   window.$message.success('保存成功')
 }
 
 export function loadPage() {
-  let page = localStorage.getItem('page-1')
-  try {
-    page = JSON.parse(page)
-  } catch (error) {
-    window.$message.error(error.toString())
-    return
-  }
-  if (page) {
-    component.root.children.splice(0)
-    parsePage(component.root, page)
-    window.$message.success('加载成功')
-  } else {
-    window.$message.warning('还没有保存页面哦')
-  }
+  const page = usePageStore()
+  const _pageSet = {}
+  Object.keys(localStorage).forEach((keywordsStr) => {
+    const keywords = keywordsStr.split('-')
+    // page开头是标志
+    if (keywords[0] !== 'page' || keywords.length < 3) {
+      return
+    } else {
+      const key = keywords[1]
+      const label = keywords.slice(2).join('-')
+      let elems = localStorage.getItem(keywordsStr)
+      try {
+        elems = JSON.parse(elems)
+      } catch (e) {
+        return
+      }
+      _pageSet[key] = {
+        root: new classes.Container({
+          name: '__root__',
+          plant: true,
+          style: {
+            width: '100%',
+            height: '100%',
+          },
+          wrapper: {
+            style: {
+              width: '100%',
+              height: '100%',
+            },
+            onClick: () => {},
+          },
+        }),
+        label,
+      }
+      parsePage(_pageSet[key].root, elems)
+    }
+  })
+  page.pageSet = _pageSet
+  page._page = localStorage.getItem('select-page')
+    ? localStorage.getItem('select-page')
+    : 'index'
+  window.$message.success('加载成功')
 }
 
 function parsePage(root, children) {

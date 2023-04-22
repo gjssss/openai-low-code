@@ -1,26 +1,16 @@
 <template>
   <div id="editor" class="h-editor-view w-full overflow-hidden">
-    <rootComponent> </rootComponent>
+    <currentPage> </currentPage>
   </div>
 </template>
 
 <script setup>
-import { Container } from '../lib'
+import { useComponentStore } from '@/stores/component'
+import { usePageStore } from '@/stores/pages'
+import { storeToRefs } from 'pinia'
 
-const root = new Container({
-  name: '__root__',
-  plant: true,
-  style: {
-    width: '100%',
-    height: '100%',
-  },
-  wrapper: {
-    style: {
-      width: '100%',
-      height: '100%',
-    },
-    onClick: () => {},
-  },
-})
-const rootComponent = root.render()
+const component = useComponentStore()
+const page = usePageStore()
+const { currentPage, currentRoot } = storeToRefs(page)
+component.__root__ = currentRoot.id
 </script>

@@ -19,9 +19,6 @@ export const useComponentStore = defineStore('component', {
     push(component) {
       const id = this.count++
       this.compSet[id] = component
-      if (component.name === '__root__') {
-        this.__root__ = id
-      }
       return id
     },
     /**

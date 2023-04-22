@@ -8,6 +8,7 @@
           :render-label="renderLabel"
           :options="menuOpt"
         />
+        <pageSelector></pageSelector>
       </div>
       <editor-view></editor-view>
     </div>
@@ -39,8 +40,8 @@
 </template>
 
 <script setup>
-import SideBar from '../side-bar/side-bar.vue'
-import editorView from '../editor-view/editor-view.vue'
+import SideBar from '@/side-bar/side-bar.vue'
+import editorView from '@/editor-view/editor-view.vue'
 import {
   useMessage,
   useNotification,
@@ -51,18 +52,20 @@ import {
   NButton,
 } from 'naive-ui'
 import { h, computed, ref } from 'vue'
-import { savePage, loadPage } from '../lib/utils/save'
-import { useComponentStore } from '../stores/component'
-import { showComponentHelp } from '../utils/help'
+import { savePage, loadPage } from '@/lib/utils/save'
+import { process } from '@/lib/utils/auto'
 import { selectComponent } from '@/lib/utils/register'
 import { Container } from '@/lib'
+import { showComponentHelp } from '@/utils/help'
+import { useComponentStore } from '@/stores/component'
 import { ask } from '@/utils/chatGPT'
-import { process } from '../lib/utils/auto'
+import pageSelector from './page-selector.vue'
+import { usePageStore } from '@/stores/pages'
 
 const component = useComponentStore()
+const page = usePageStore()
 const showGPT = ref(false)
 const question = ref('')
-const runBtn = ref()
 const loading = ref(false)
 window.component = component
 
@@ -113,6 +116,15 @@ const menuOpt = computed(() => [
         callBack: () => {
           component.clear()
           loadPage()
+        },
+      },
+      {
+        label: '新建页面',
+        key: 'newPage',
+        callBack: () => {
+          const key = 'page' + Object.keys(page.pageSet).length
+          page.newPage(key)
+          window.$message.success('新建页面成功！！新建页面：' + key)
         },
       },
     ],
