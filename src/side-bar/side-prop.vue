@@ -129,6 +129,7 @@ function delHandle() {
 }
 function copy() {
   const props = unref(currentComponent.value.props)
+  delete props.id
   clipboard.copy(currentComponent.value.__type__, JSON.stringify(props))
   window.$message.success('复制成功')
 }
