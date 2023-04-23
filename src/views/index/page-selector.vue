@@ -6,10 +6,11 @@
       :render-option="renderOption"
     >
       <div
-        class="page-drop page-name"
+        class="page-drop page-name whitespace-nowrap"
         :contenteditable="edit"
         ref="pageName"
         @input="updateName"
+        @keydown.enter.prevent="blurHandle"
       >
         {{ activePage.label }}
       </div>
@@ -36,28 +37,6 @@ const { _page, pageList } = storeToRefs(page)
 
 const edit = ref(false)
 const pageName = ref()
-// const options = reactive([
-//   {
-//     label: 'index',
-//     key: 'index',
-//   },
-//   {
-//     label: 'user',
-//     key: 'user',
-//   },
-//   {
-//     label: 'news',
-//     key: 'news',
-//   },
-//   {
-//     label: 'shopping',
-//     key: 'shopping',
-//   },
-//   {
-//     label: 'post',
-//     key: 'post',
-//   },
-// ])
 const activePage = computed({
   get() {
     return pageList.value.filter((i) => i.key === _page.value)[0]
@@ -103,7 +82,7 @@ function updateName(e) {
   activePage.value = e.target.innerText
 }
 function blurHandle(e) {
-  if (edit.value && e.target.id !== 'edit-icon') {
+  if (edit.value && e && e.target.id !== 'edit-icon') {
     edit.value = false
   }
 }
