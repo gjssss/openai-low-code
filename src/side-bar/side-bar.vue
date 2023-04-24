@@ -5,7 +5,7 @@
     <n-tabs
       type="line"
       :tab-style="{
-        width: '160px',
+        width: '90px',
         display: 'flex',
         'justify-content': 'center',
       }"
@@ -13,6 +13,7 @@
     >
       <n-tab name="prop"> 属性 </n-tab>
       <n-tab name="comp"> 组件 </n-tab>
+      <n-tab name="event"> 事件 </n-tab>
     </n-tabs>
     <div>
       <KeepAlive>
@@ -27,10 +28,12 @@ import { NTabs, NTab } from 'naive-ui'
 import { ref } from 'vue'
 import sideCom from './side-com.vue'
 import sideProp from './side-prop.vue'
+import sideEvent from './side-event.vue'
 const select = ref('prop')
 const comMap = {
   prop: sideProp,
   comp: sideCom,
+  event: sideEvent,
 }
 </script>
 <style>

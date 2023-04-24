@@ -99,7 +99,7 @@ const menuOpt = computed(() => [
       ? '当前组件：' + component.currentComponent.name + '👈'
       : '没有选中组件🤷‍♂️',
     key: 'component',
-    children: component.root ? component.root.children.map(_map) : [],
+    children: page.currentRoot ? page.currentRoot.children.map(_map) : [],
   },
   {
     label: '页面选项📄',

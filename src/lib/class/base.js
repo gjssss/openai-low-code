@@ -54,7 +54,7 @@ export class Base {
       delete props.wrapper
     }
 
-    this.props = reactive(merge({ class: [], style: {} }, props))
+    this.props = reactive(merge({ class: {}, style: {} }, props))
     this.extraProps = reactive({})
     this.settings = reactive({}) // 保存一些组件属性管理上的设置
 

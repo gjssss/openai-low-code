@@ -100,7 +100,7 @@ const dragOption = {
     if (instance) {
       const newComponent = Reflect.construct(
         Classes[e.item.getAttribute('name')],
-        [{ name: e.item.getAttribute('name'), class: ['trans-all'] }]
+        [{ name: e.item.getAttribute('name'), class: { 'trans-all': true } }]
       )
       newComponent.father = instance
       instance.addChildren(e.newIndex, newComponent)

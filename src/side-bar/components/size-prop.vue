@@ -80,6 +80,15 @@
         </n-tooltip>
         <n-switch :value="overflow" @update:value="updateOverflow"></n-switch>
       </div>
+      <div size="12">
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <span class="iconfont text-18px icon-box-shadow" />
+          </template>
+          阴影
+        </n-tooltip>
+        <n-switch :value="shadow" @update:value="updateShadow"></n-switch>
+      </div>
     </template>
   </BaseProps>
 </template>
@@ -104,6 +113,7 @@ const backgroundColor = ref('')
 const textColor = ref('')
 const boxSizing = ref(false)
 const overflow = ref(false)
+const shadow = ref(false)
 
 function updateWidthPx(value) {
   widthPx.value = value
@@ -136,6 +146,11 @@ function updateBoxSizing(value) {
 function updateOverflow(value) {
   component.setProp('overflow', value ? 'hidden' : 'visible', true)
   overflow.value = value
+}
+
+function updateShadow(value) {
+  component.currentComponent.props.class['shadow-xl'] = value
+  shadow.value = value
 }
 
 const widthPercent = computed(() => {

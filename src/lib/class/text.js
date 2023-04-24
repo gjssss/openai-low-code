@@ -65,6 +65,30 @@ export class Text extends Base {
             default: '#000000FF',
           }
         ),
+        this.registerSwitch(
+          {
+            path: 'props.style.text-decoration',
+            icon: 'iconfont icon-zitixiahuaxian',
+            size: 12,
+          },
+          {
+            default: 'none',
+            on: 'underline',
+            off: 'none',
+          }
+        ),
+        this.registerSwitch(
+          {
+            path: 'props.style.font-style',
+            icon: 'iconfont icon-zitixieti',
+            size: 12,
+          },
+          {
+            default: 'normal',
+            on: 'italic',
+            off: 'normal',
+          }
+        ),
       ]),
     ]
   }

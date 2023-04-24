@@ -58,7 +58,7 @@
           </div>
         </template>
         <template #arrow> <span></span> </template>
-        <size-prop></size-prop>
+        <size-prop />
         <four-props
           prop-name="padding"
           title="内边距"
