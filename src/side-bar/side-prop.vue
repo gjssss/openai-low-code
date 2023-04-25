@@ -99,6 +99,17 @@
           :is="comp"
         ></component>
       </n-collapse-item>
+      <n-collapse-item>
+        <template #header>
+          <div
+            class="mx-10% text-center py-5px w-80% collapse-header hover:shadow-md trans-all"
+          >
+            <span class="text-16px fw-500">触发事件</span>
+          </div>
+        </template>
+        <template #arrow> <span></span> </template>
+        <eventProps></eventProps>
+      </n-collapse-item>
     </n-collapse>
   </div>
   <div v-else>
@@ -115,6 +126,7 @@ import { useComponentStore } from '@/stores/component'
 import fourProps from './widgets/four-props.vue'
 import borderProp from './components/border-prop.vue'
 import sizeProp from './components/size-prop.vue'
+import eventProps from './components/event-props.vue'
 import { NCollapse, NCollapseItem, NInput, NTooltip } from 'naive-ui'
 import { unref } from 'vue'
 import { useClipboard } from '@/stores/clipboard'

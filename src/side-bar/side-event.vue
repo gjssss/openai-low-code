@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in eventList" :key="index">
+        <tr v-for="item in eventList" :key="item.id">
           <td>{{ item.name }}</td>
           <td>
             <span v-for="t in item.trigger" :key="t.value" class="trigger">
@@ -88,15 +88,15 @@ const eventName = ref('')
 const triggerOption = [
   {
     label: '左键点击',
-    value: 'onClick-left',
+    value: 'onClick-left-prevent',
   },
   {
     label: '右键点击',
-    value: 'onClick-right',
+    value: 'onContextmenu-right-prevent',
   },
   {
     label: '中键点击',
-    value: 'onClick-middle',
+    value: 'onMouseup-middle-prevent',
   },
 ]
 const eventOption = [

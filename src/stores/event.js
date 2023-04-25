@@ -11,4 +11,14 @@ export const useEventStore = defineStore('event', {
       return event.id
     },
   },
+  getters: {
+    eventOption: (state) => {
+      return state.eventList.map((item) => {
+        return {
+          label: item.name,
+          value: item.id,
+        }
+      })
+    },
+  },
 })

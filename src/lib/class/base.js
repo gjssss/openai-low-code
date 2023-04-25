@@ -1,4 +1,4 @@
-import { reactive, h, ref, toRaw, watch } from 'vue'
+import { reactive, h, ref, toRaw, watch, withModifiers, computed } from 'vue'
 import {
   registerComponent,
   selectComponent,
@@ -9,7 +9,9 @@ import {
   registerColorPicker,
   registerInputNumber,
 } from '../utils/register'
-import { cloneDeep, merge } from 'lodash-es'
+import { cloneDeep, difference, merge } from 'lodash-es'
+import events from '../utils/eventFunctions'
+import { useEventStore } from '@/stores/event'
 export class Base {
   constructor(props = {}) {
     if (Object.hasOwnProperty.call(props, 'name')) {
@@ -32,6 +34,27 @@ export class Base {
     } else {
       this.father = this
     }
+
+    if (Object.hasOwnProperty.call(props, 'events')) {
+      this.events = reactive(props.events)
+      delete props.events
+    } else {
+      this.events = reactive([])
+    }
+    // TODO 此处name不能重复BUG
+    this.eventsComputed = computed({
+      get: () => this.events.map((item) => item.name),
+      set: (newVal) => {
+        const eventStore = useEventStore()
+        if (newVal.length > this.eventsComputed.value.length) {
+          const id = difference(newVal, this.eventsComputed.value)[0]
+          this.addEvent(eventStore.eventList.find((i) => i.id === id))
+        } else {
+          const name = difference(this.eventsComputed.value, newVal)[0]
+          this.removeEvent(this.events.findIndex((i) => i.name === name))
+        }
+      },
+    })
 
     this.id = registerComponent(this)
 
@@ -139,5 +162,34 @@ export class Base {
     props.__type__ = cloneDeep(toRaw(this.__type__))
     delete props.id
     return props
+  }
+
+  addEvent(event) {
+    this.events.push(event)
+    event.trigger.forEach((item) => {
+      const eModi = item.value.split('-')
+      const eName = eModi.shift()
+      if (!Object.hasOwnProperty.call(this.props, eName)) {
+        this.props[eName] = []
+      }
+      this.props[eName].push(
+        withModifiers(events[event.eventFuncName.value], eModi)
+      )
+    })
+  }
+
+  removeEvent(eventIndex) {
+    const event = this.events[eventIndex]
+    event.trigger.forEach((item) => {
+      const eModi = item.value.split('-')
+      const eName = eModi.shift()
+      this.props[eName].splice(
+        this.props[eName].findIndex(
+          (i) => i === withModifiers(events[event.eventFuncName.value], eModi)
+        ),
+        1
+      )
+    })
+    this.events.splice(eventIndex, 1)
   }
 }
