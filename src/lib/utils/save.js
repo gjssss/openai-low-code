@@ -4,6 +4,7 @@ import { usePageStore } from '@/stores/pages'
 export function savePage() {
   // 命名规则：page-{key}-{label}
   const page = usePageStore()
+  localStorage.clear()
   Object.keys(page.pageSet).forEach((key) => {
     const elems = JSON.stringify(page.pageSet[key].root.jsonify().children)
     localStorage.setItem(`page-${key}-${page.pageSet[key].label}`, elems)

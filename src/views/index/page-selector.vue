@@ -33,6 +33,7 @@ import { storeToRefs } from 'pinia'
 
 const component = useComponentStore()
 const page = usePageStore()
+window.page = page
 const { _page, pageList } = storeToRefs(page)
 
 const edit = ref(false)
@@ -42,7 +43,7 @@ const activePage = computed({
     return pageList.value.filter((i) => i.key === _page.value)[0]
   },
   set(value) {
-    pageList.value.filter((i) => i.key === _page.value)[0].label = value
+    page.pageSet[_page.value].label = value
   },
 })
 function renderOption(props) {
