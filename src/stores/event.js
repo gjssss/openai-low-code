@@ -10,6 +10,16 @@ export const useEventStore = defineStore('event', {
       this.eventList.push(event)
       return event.id
     },
+    stringify() {
+      return JSON.stringify({
+        eventList: this.eventList,
+        count: this.count,
+      })
+    },
+    parse(json) {
+      this.eventList = json.eventList
+      this.count = json.count
+    },
   },
   getters: {
     eventOption: (state) => {

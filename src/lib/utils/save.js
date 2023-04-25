@@ -1,20 +1,24 @@
 import * as classes from '@/lib'
+import { useEventStore } from '@/stores/event'
 import { usePageStore } from '@/stores/pages'
 
 export function savePage() {
   // 命名规则：page-{key}-{label}
   const page = usePageStore()
+  const event = useEventStore()
   localStorage.clear()
   Object.keys(page.pageSet).forEach((key) => {
     const elems = JSON.stringify(page.pageSet[key].root.jsonify().children)
     localStorage.setItem(`page-${key}-${page.pageSet[key].label}`, elems)
   })
   localStorage.setItem('select-page', page._page)
+  localStorage.setItem('events', event.stringify())
   window.$message.success('保存成功')
 }
 
 export function loadPage() {
   const page = usePageStore()
+  const event = useEventStore()
   const _pageSet = {}
   Object.keys(localStorage).forEach((keywordsStr) => {
     const keywords = keywordsStr.split('-')
@@ -55,6 +59,11 @@ export function loadPage() {
   page._page = localStorage.getItem('select-page')
     ? localStorage.getItem('select-page')
     : 'index'
+  event.parse(
+    localStorage.getItem('events')
+      ? JSON.parse(localStorage.getItem('events'))
+      : { eventList: [], count: 0 }
+  )
   window.$message.success('加载成功')
 }
 

@@ -35,11 +35,11 @@ export class Base {
       this.father = this
     }
 
+    this.events = reactive([])
+    let _events = []
     if (Object.hasOwnProperty.call(props, 'events')) {
-      this.events = reactive(props.events)
+      _events = props.events
       delete props.events
-    } else {
-      this.events = reactive([])
     }
     // TODO 此处name不能重复BUG
     this.eventsComputed = computed({
@@ -86,6 +86,8 @@ export class Base {
     delete props.content
     this.__type__ = 'Base'
     this.isRender = false
+
+    _events.forEach((item) => this.addEvent(item))
 
     watch(
       () => this.settings['size-more'],
@@ -160,6 +162,7 @@ export class Base {
     props.content = cloneDeep(toRaw(this.content))
     props.settings = cloneDeep(toRaw(this.settings))
     props.__type__ = cloneDeep(toRaw(this.__type__))
+    props.events = cloneDeep(toRaw(this.events))
     delete props.id
     return props
   }
