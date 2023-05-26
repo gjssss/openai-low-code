@@ -51,7 +51,7 @@ import {
   NInput,
   NButton,
 } from 'naive-ui'
-import { h, computed, ref } from 'vue'
+import { h, computed, ref, nextTick } from 'vue'
 import { savePage, loadPage } from '@/lib/utils/save'
 import { process } from '@/lib/utils/auto'
 import { selectComponent } from '@/lib/utils/register'
@@ -61,7 +61,9 @@ import { useComponentStore } from '@/stores/component'
 import { ask } from '@/utils/chatGPT'
 import pageSelector from './page-selector.vue'
 import { usePageStore } from '@/stores/pages'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const component = useComponentStore()
 const page = usePageStore()
 const showGPT = ref(false)
@@ -116,15 +118,27 @@ const menuOpt = computed(() => [
         callBack: () => {
           component.clear()
           loadPage()
+          console.log(page.currentRoot)
+          nextTick(() => {
+            page.currentRoot.props.style.height = `${window.innerHeight - 40}px`
+            page.currentRoot.props.style.width = `${window.innerWidth - 320}px`
+          })
         },
       },
       {
-        label: '新建页面',
+        label: '新建页面🤺',
         key: 'newPage',
         callBack: () => {
           const key = 'page' + Object.keys(page.pageSet).length
           page.newPage(key)
           window.$message.success('新建页面成功！！新建页面：' + key)
+        },
+      },
+      {
+        label: '预览页面🤺',
+        key: 'previewPage',
+        callBack: () => {
+          router.push('/preview')
         },
       },
     ],
@@ -163,10 +177,15 @@ function renderLabel(opt) {
 
 function runHandle() {
   loading.value = true
-  ask(question.value).then((d) => {
-    process(d)
-    loading.value = false
-  })
+  ask(question.value)
+    .then((d) => {
+      process(d)
+      loading.value = false
+    })
+    .catch((e) => {
+      console.log(e)
+      loading.value = false
+    })
 }
 
 window.$message = useMessage()
@@ -177,15 +196,19 @@ window.$notification = useNotification()
 .w-sider-bar {
   width: 320px;
 }
+
 .w-content-screen {
   width: calc(100vw - 320px);
 }
+
 .h-top-tab {
   height: 40px;
 }
+
 .h-editor-view {
   height: calc(100vh - 40px);
 }
+
 .menu-item {
   font-size: 12px;
 }
