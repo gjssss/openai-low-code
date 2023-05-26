@@ -1,0 +1,1 @@
+import{u as s,s as r,o as n,c as a,a as c,b as i}from"./index-9e8e7fd1.js";const d={w100vw:"",h100vh:"","overflow-hidden":""},l={__name:"index",setup(p){const t=s(),{currentPage:o,currentRoot:e}=r(t);return e.value.props.style.height=window.innerHeight,e.value.props.style.width=window.innerWidth,(u,h)=>(n(),a("div",d,[c(i(o))]))}};export{l as default};
